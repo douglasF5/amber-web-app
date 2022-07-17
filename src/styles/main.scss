@@ -1,0 +1,21 @@
+@use './base/reset';
+@use './base/colors';
+@use './base/text' as t;
+@use './base/utils' as u;
+
+:root {
+    // SETTING COMMON COLOR CUSTOM PROPERTIES
+    @each $color, $value in colors.$base-colors {
+        --c-#{$color}: #{$value};
+    }
+}
+
+body {   
+    font-family: t.$font-face-primary;
+    color: var(--c-on-surface-primary);
+    background-color: var(--c-surface-primary);
+}
+
+h1 {
+    @include u.sr-only;
+}

@@ -1,5 +1,5 @@
 export default function Home() {
   return (
-    <h1>Hello, bitches!</h1>
+    <h1>Amber podcasts</h1>
   )
 }

@@ -1,0 +1,67 @@
+@use './utils' as u;
+
+@function getLineHeight($flag) {
+    @if $flag == "one-liner" {
+      @return 100%;
+    } @else {
+      @return $flag;
+    }
+}
+
+// UTILITY DATA
+$font-face-primary: 'Inter', sans-serif;
+$font-face-secondary: 'Lexend', sans-serif;
+
+$font-weights: (
+  "regular": 400,
+  "medium": 500,
+  "semibold": 600,
+  "bold": 700,
+);
+
+$heading-sizes: (
+  "L": u.toRem(32),
+  "M": u.toRem(24),
+  "S": u.toRem(20),
+);
+
+$title-sizes: (
+  "L": u.toRem(16),
+  "S": u.toRem(12),
+);
+
+$base-sizes: (
+  "M": u.toRem(16),
+  "S": u.toRem(14),
+);
+
+$mini-sizes: (
+  "M": u.toRem(12),
+);
+
+// TEXT STYLES
+@mixin heading($size, $weight: "semibold", $height: 135%) {
+    font-family: $font-face-secondary;
+    font-size: map-get($heading-sizes, $size);
+    font-weight: map-get($font-weights, $weight);
+    line-height: getLineHeight($height);
+}
+
+@mixin title($size, $weight: "semibold", $height: 100%) {
+    font-family: $font-face-secondary;
+    font-size: map-get($heading-sizes, $size);
+    font-weight: map-get($font-weights, $weight);
+    line-height: getLineHeight($height);
+}
+
+@mixin base($size, $weight: "regular", $height: 135%) {
+  font-size: map-get($base-sizes, $size);
+  font-weight: map-get($font-weights, $weight);
+  line-height: getLineHeight($height);
+}
+
+@mixin mini($size, $weight: "semibold", $height: 135%) {
+    font-size: map-get($mini-sizes, $size);
+    font-weight: map-get($font-weights, $weight);
+    line-height: getLineHeight($height);
+}

@@ -1,0 +1,21 @@
+$base-colors: (
+    //ACCENT
+    "amber-accent-primary": #F5A351,
+    "amber-accent-secondary": #E7CDA6,
+    "amber-accent-container-primary": #F5A351,
+    "amber-accent-container-secondary": rgba(245, 163, 81, 0.11),
+    "amber-on-accent-container-primary": #592805,
+    "amber-over-accent-container-secondary": rgba(245, 163, 81, 0.24),
+    "amber-over-accent-container-primary": rgba(89, 40, 5, 0.15),
+    "amber-over-accent-container-primary-secondary": rgba(89, 40, 5, 0.24),
+    //SURFACE
+    "surface-primary": #101112,
+    "surface-secondary": rgba(189, 224, 249, 0.08),
+    "surface-player-widget": linear-gradient(180deg, rgba(245, 163, 81, 0.2) 2.41%, rgba(245, 163, 81, 0.05) 80.93%),
+    //ON SURFACE
+    "on-surface-primary": #E7E9EA,
+    "on-surface-secondary": rgba(189, 224, 249, 0.75),
+    "on-surface-tertiary": rgba(189, 224, 249, 0.55),
+    //OUTLINE
+    "outline-primary": rgba(115, 130, 140, 0.32)
+);
