@@ -3,7 +3,7 @@
     @return $remValue;
 }
 
-@mixin sr-only {
+@mixin srOnly {
     position: absolute;
     width: 1px;
     height: 1px;

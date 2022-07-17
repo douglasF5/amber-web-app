@@ -1,3 +1,5 @@
+@use './text' as t;
+
 /* GLOBAL RESET */
 
 /* Box sizing rules */
@@ -84,4 +86,10 @@ input[type="number"] {
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
+}
+
+//SETUP DEFAULT TEXT STYLES
+h1, h2, h3, h4, h5, h6 {
+  font-family: t.$font-face-secondary;
+  font-weight: 500;
 }

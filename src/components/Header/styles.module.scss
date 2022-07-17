@@ -1,0 +1,36 @@
+@use '../../styles/base/layout' as l;
+@use '../../styles/base/utils' as u;
+@use '../../styles/base/text' as t;
+
+.sectionContainer {
+    @include l.sectionContainer;
+    border-bottom: 1px solid var(--c-outline-primary);
+}
+
+.contentContainer {
+    @include l.contentContainer;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: u.toRem(24) 0;
+    color: var(--c-on-surface-primary);
+
+    & > div {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: u.toRem(16);
+
+        span {
+            @include t.base("M", "regular", "one-liner");
+
+            padding-left: u.toRem(16);
+            border-left: 1px solid var(--c-outline-primary);
+        }
+
+        time {
+            @include t.base("M", "regular", "one-liner");
+        }
+    }
+}

@@ -1,0 +1,8 @@
+@mixin sectionContainer {
+    padding: 0 48px;
+}
+
+@mixin contentContainer {
+    max-width: 932px;
+    margin: 0 auto;
+}

@@ -1,0 +1,24 @@
+@use '../../styles/base/layout' as l;
+@use '../../styles/base/utils' as u;
+@use '../../styles/base/text' as t;
+
+.sectionContainer {
+    @include l.sectionContainer;
+}
+
+.contentContainer {
+    @include l.contentContainer;
+    padding: u.toRem(48) 0;
+
+    h2 {
+        @include t.heading("L");
+        margin-bottom: u.toRem(24);
+    }
+
+    & > div {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: u.toRem(24);
+    }
+}
