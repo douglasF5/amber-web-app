@@ -18,7 +18,67 @@
     & > div {
         display: flex;
         justify-content: space-between;
-        align-items: center;
+        align-items: flex-start;
         gap: u.toRem(24);
+
+        article {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex: 0 1 100%;
+            gap: u.toRem(16);
+            padding: u.toRem(20);
+            background-color: var(--c-surface-secondary);
+            border: 1px solid var(--c-outline-primary);
+            border-radius: 16px;
+            cursor: pointer;
+            transition-property: background-color;
+            transition-duration: 100ms;
+            transition-timing-function: ease-in-out;
+
+            &:hover {
+                background-color: var(--c-amber-accent-container-secondary);
+            }
+
+            .cardCover {
+                aspect-ratio: 1;
+                border: 1px solid var(--c-outline-primary);
+                border-radius: 12px;
+                overflow: hidden;
+                flex-shrink: 0;
+            }
+
+            .textContentWrapper {
+                display: flex;
+                flex: 1 1 100%;
+                align-self: stretch;
+                flex-direction: column;
+                justify-content: space-between;
+                gap: u.toRem(8);
+            }
+
+            .cardTitle {
+                @include t.title("L");
+            }
+
+            time {
+                @include t.base("S", "regular", "one-liner");
+                color: var(--c-on-surface-secondary);
+                transition: color 100ms ease-in-out;
+            }
+
+            &:hover time {
+                color: var(--c-amber-accent-secondary);
+            }
+
+            .playIndicator {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                gap: u.toRem(16);
+                background-color: var(--c-amber-accent-container-primary);
+                border-radius: 10px;
+            }
+        }
     }
 }

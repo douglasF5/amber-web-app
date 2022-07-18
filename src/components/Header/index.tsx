@@ -1,4 +1,6 @@
 import s from './styles.module.scss';
+import Image from 'next/image';
+import logo from '../../../public/logo.svg';
 
 export function Header() {
     const currentDate = new Date();
@@ -13,7 +15,7 @@ export function Header() {
         <header className={s.sectionContainer}>
             <div className={s.contentContainer}>
                 <div>
-                    <i>Logo goes here</i>
+                    <Image src={logo} alt="Amber"/>
                     <span>You listen to the best, always</span>
                 </div>
                 <time dateTime={shortDate}>{longDate}</time>

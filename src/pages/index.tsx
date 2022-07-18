@@ -6,7 +6,7 @@ export default function Home() {
     <>
       <Header />
       <main>
-        <h1>Amber podcasts</h1>
+        <h1 className="pageTitle">Amber podcasts</h1>
         <FeaturedContent />
       </main>
     </>

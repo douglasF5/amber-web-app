@@ -47,9 +47,9 @@ $mini-sizes: (
     line-height: getLineHeight($height);
 }
 
-@mixin title($size, $weight: "semibold", $height: 100%) {
+@mixin title($size, $weight: "semibold", $height: 135%) {
     font-family: $font-face-secondary;
-    font-size: map-get($heading-sizes, $size);
+    font-size: map-get($title-sizes, $size);
     font-weight: map-get($font-weights, $weight);
     line-height: getLineHeight($height);
 }

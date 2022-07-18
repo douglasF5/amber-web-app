@@ -16,6 +16,6 @@ body {
     background-color: var(--c-surface-primary);
 }
 
-h1 {
+h1.pageTitle {
     @include u.srOnly;
 }
