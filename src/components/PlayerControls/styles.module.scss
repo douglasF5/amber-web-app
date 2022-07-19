@@ -1,0 +1,40 @@
+@use '../../styles/base/button' as b;
+@use '../../styles/base/utils' as u;
+@use '../../styles/base/text' as t;
+
+.playerControlsWrapper {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    gap: u.toRem(12);
+}
+
+.playerProgress {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: u.toRem(4);
+
+    span {
+        @include t.mini("M", "regular", "one-liner");
+    }
+}
+
+.controlsWrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: u.toRem(8);
+}
+
+.playPauseButton {
+    @include b.buttonIconSecondary;
+}
+
+.nextPreviousButton {
+    @include b.buttonIconTertiary;
+}
+
+.toggleButton {
+    @include b.buttonIconToggle;
+}

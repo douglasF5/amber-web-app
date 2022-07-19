@@ -59,6 +59,13 @@
 
             .cardTitle {
                 @include t.title("L");
+                display: -webkit-box !important;
+                max-width: 100%;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                -webkit-line-clamp: 3;
+                -webkit-box-orient: vertical;
+                white-space: normal;
             }
 
             time {
@@ -73,8 +80,12 @@
 
             .playIndicator {
                 display: flex;
-                justify-content: space-between;
+                justify-content: center;
                 align-items: center;
+                align-self: flex-end;
+                flex: 0 0 auto;
+                width: 40px;
+                height: 40px;
                 gap: u.toRem(16);
                 background-color: var(--c-amber-accent-container-primary);
                 border-radius: 10px;

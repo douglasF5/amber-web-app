@@ -1,0 +1,59 @@
+@mixin btn {
+    cursor: pointer;
+    border: none;
+    transition: background-color 100ms ease-in-out;
+
+    &:active {
+        transform: scale(0.95);
+    }
+}
+
+@mixin btnIcon($size, $roundCorner) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: $size + px;
+    height: $size + px;
+    border-radius: $roundCorner + px;
+}
+
+@mixin buttonIconPrimary($size: 40, $roundCorner:  8) {
+    @include btn;
+    @include btnIcon($size, $roundCorner);
+
+    background-color: var(--c-amber-accent-container-primary);
+}
+
+@mixin buttonIconSecondary($size: 40, $roundCorner: 8) {
+    @include btn;
+    @include btnIcon($size, $roundCorner);
+
+    background-color: var(--c-amber-accent-container-secondary);
+}
+
+@mixin buttonIconTertiary($size: 40, $roundCorner: 8) {
+    @include btn;
+    @include btnIcon($size, $roundCorner);
+
+    background-color: transparent;
+
+    @media (hover: hover) {
+        &:hover {
+            background-color: var(--c-amber-accent-container-secondary);
+        }
+    }
+}
+
+@mixin buttonIconOutline($size: 40, $roundCorner: 8) {
+    @include btn;
+    @include btnIcon($size, $roundCorner);
+
+    background-color: transparent;
+    border: 1px solid var(--c-outline-primary);
+}
+
+@mixin buttonIconToggle($size: 40, $roundCorner: 8) {
+    @include buttonIconTertiary;
+
+    background-color: transparent;
+}

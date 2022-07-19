@@ -1,8 +1,13 @@
 import s from './styles.module.scss';
 import Image from 'next/image';
-// import cardCover from '../../../public/podcast-cover-placeholder-M.png';
+import { Play } from '../Icons';
 
 export function FeaturedContent() {
+    const i = {
+        size: 24,
+        color: 'var(--c-amber-on-accent-container-primary)'
+    };
+
     return (
         <section className={s.sectionContainer}>
             <div className={s.contentContainer}>
@@ -18,7 +23,9 @@ export function FeaturedContent() {
                                 <time>1:35:18</time> · <time>8 Jan 21</time>
                             </div>
                         </div>
-                        {/* <img className={s.playIndicator} src="" alt="" /> */}
+                        <div className={s.playIndicator}>
+                            <Play width={i.size} height={i.size} color={i.color}/>
+                        </div>
                     </article>
                     <article>
                         <div className={s.cardCover}>
@@ -30,7 +37,9 @@ export function FeaturedContent() {
                                 <time>1:35:18</time> · <time>8 Jan 21</time>
                             </div>
                         </div>
-                        {/* <img className={s.playIndicator} src="" alt="" /> */}
+                        <div className={s.playIndicator}>
+                            <Play width={i.size} height={i.size} color={i.color}/>
+                        </div>
                     </article>
                 </div>
             </div>
