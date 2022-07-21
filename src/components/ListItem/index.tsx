@@ -10,7 +10,14 @@ type ListItemProps = {
     handleExpand: () => void;
 }
 
-export function ListItem({ data, isExpanded, isPlaying, ...rest }: ListItemProps) {
+export function ListItem({
+    data,
+    isExpanded,
+    isPlaying,
+    handlePlay,
+    handleExpand,
+    ...rest
+}: ListItemProps) {
     const i = {
         size: 20,
         color: isExpanded
@@ -18,18 +25,26 @@ export function ListItem({ data, isExpanded, isPlaying, ...rest }: ListItemProps
             : 'var(--c-amber-accent-primary)'
     };
 
+    const isPlayingClass = isPlaying ? s.isPlayingClass : '';
+    const isExpandedClass = isExpanded ? s.isExpandedClass : '';
+
     return (
-        <article className={s.outerWrapper}>
-            <div className={s.contentContainer}>
+        <article className={`${s.outerWrapper} ${isExpandedClass}`}>
+            <div className={`${s.contentContainer} ${isPlayingClass}`}>
                 <header>
-                    <div>
-                        <button></button>
+                    <div className={s.clickableArea}>
+                        <button
+                            type='button'
+                            className={s.expandButton}
+                            onClick={handleExpand}
+                        >
+                            <span>Expand item</span>
+                        </button>
                         <div className={s.cardCover}>
-                            <Image  src="/podcast-cover-placeholder-M.png" alt="Podcast" width={48} height={48} />
                         </div>
                         <h3>Faladev #28 | Por trás de barreiras e soluções propostas por micro-serviços</h3>
-                        <span>8 Jan 21 · Dego Fernandes, Dani Leão, Wesley Williams e Lucas Santos</span>
-                        <time>1:35:18</time>
+                        <span className={isPlayingClass}>8 Jan 21 · Dego Fernandes, Dani Leão, Wesley Williams e Lucas Santos</span>
+                        <time className={isPlayingClass}>1:35:18</time>
                     </div>
                     <button type='button' className={isExpanded ? s.playButtonPrimary : s.playButtonSecondary}>
                         <Play width={i.size} height={i.size} color={i.color}/>

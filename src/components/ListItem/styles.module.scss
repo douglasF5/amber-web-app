@@ -5,32 +5,89 @@
 .outerWrapper {
     overflow: hidden;
     border-radius: 8px;
+
+    &.isExpandedClass {
+        margin: 32px 0;
+    }
 }
 
 .contentContainer {
     background-color: var(--c-surface-secondary);
+
+    &.isPlayingClass {
+        background-color: var(--c-amber-accent-container-secondary);
+    }
 
     header {
         display: flex;
         justify-content: space-between;
         align-items: center;
         padding-right: u.toRem(16);
+        gap: 16px;
 
-        div {
-            display: flex;
-            justify-content: space-between;
+        .clickableArea {
+            position: relative;
+            display: grid;
+            flex: 1;
+            grid-template-rows: auto;
+            grid-template-columns: auto 1fr 10%;
+            grid-template-areas:
+                "img title duration"
+                "img info duration";
             align-items: center;
             padding: u.toRem(16) 0 u.toRem(16) u.toRem(16);
-            gap: 8px;
+            gap: 8px 16px;
+
+            .expandButton {
+                @include b.btn;
+
+                position: absolute;
+                z-index: 2;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                background-color: transparent;
+
+                span {
+                    @include u.srOnly;
+                }
+            }
 
             .cardCover {
-                aspect-ratio: 1;
-                // width: 48px;
-                // height: 48px;
+                // aspect-ratio: 1;
+                width: 48px;
+                height: 48px;
                 border: 1px solid var(--c-outline-primary);
                 border-radius: 8px;
-                overflow: hidden;
-                flex-shrink: 1;
+                // overflow: hidden;
+                grid-area: img;
+            }
+
+            h3 {
+                @include t.title("L");
+                grid-area: title;
+                align-self: flex-start;
+            }
+
+            span {
+                @include t.base("S", "regular");
+                color: var(--c-on-surface-secondary);
+                grid-area: info;
+
+                &.isPlayingClass {
+                    color: var(--c-amber-accent-secondary);
+                }
+            }
+
+            time {
+                @include t.base("S", "regular");
+                grid-area: duration;
+                justify-self: center;
+
+                &.isPlayingClass {
+                    color: var(--c-amber-accent-secondary);
+                }
             }
         }
     }
