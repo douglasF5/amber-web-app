@@ -1,0 +1,29 @@
+@use './base/layout' as l;
+@use './base/text' as t;
+@use './base/utils' as u;
+
+.sectionContainer {
+    @include l.sectionContainer;
+}
+
+.contentContainer {
+    @include l.contentContainer;
+
+    h2 {
+        @include t.heading("L");
+        margin-bottom: u.toRem(24);
+
+        span {
+            font-weight: 400;
+            color: var(--c-on-surface-tertiary);
+        }
+    }
+}
+
+.contentListWrapper {
+    display: flex;
+    flex-direction: column;
+    padding-top: 4px;
+    gap: 4px;
+    border-top: 1px solid var(--c-outline-primary);
+}

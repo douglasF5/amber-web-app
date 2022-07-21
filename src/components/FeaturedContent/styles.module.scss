@@ -8,7 +8,7 @@
 
 .contentContainer {
     @include l.contentContainer;
-    padding: u.toRem(48) 0;
+    padding: u.toRem(48) 0 u.toRem(56) 0;
 
     h2 {
         @include t.heading("L");
