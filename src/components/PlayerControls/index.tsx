@@ -1,12 +1,14 @@
 import s from './styles.module.scss';
 import { Shuffle, PlayPrevious, Play, PlayNext, Repeat } from '../Icons';
 
+//COMPONENT DEFINITION
 export function PlayerControls() {
     const i = {
         size: 24,
         color: 'var(--c-amber-accent-primary)'
     };
 
+    //COMPONENT RETURN
     return (
         <div className={s.playerControlsWrapper}>
             <div className={s.playerProgress}>

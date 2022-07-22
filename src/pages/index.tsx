@@ -2,12 +2,13 @@ import s from '../styles/home.module.scss';
 import { format, parseISO } from 'date-fns';
 import enUS from 'date-fns/locale/en-US';
 import { GetStaticProps } from 'next';
-import { FeaturedContent } from "../components/FeaturedContent";
+import { CardItem } from "../components/CardItem";
 import { ListItem } from "../components/ListItem";
 import { useState } from 'react';
 import { api } from '../services/api';
 import { convertDurationToTimeString } from '../utils/convertDurationToTimeString';
 
+//TYPES AND INTERFACES
 export type Episode = {
 	id: string;
 	title: string;
@@ -25,6 +26,7 @@ type HomeProps = {
 	featuredEpisodes: Episode[];
 }
 
+//COMPONENT DEFINITION
 export default function Home({ allEpisodes, featuredEpisodes }: HomeProps) {
 	const [isCollapsed, setIsCollapsed] = useState(true);
 	const [isPlaying, setIsPlaying] = useState(false);
@@ -37,14 +39,26 @@ export default function Home({ allEpisodes, featuredEpisodes }: HomeProps) {
 		setIsPlaying(!isPlaying);
 	}
 	
+	//COMPONENT RETURN
 	return (
 		<main>
-		<h1 className="pageTitle">Amber podcasts</h1>
-		<FeaturedContent />
+			<h1 className="pageTitle">Amber podcasts</h1>
 			<section className={s.sectionContainer}>
-				<div className={s.contentContainer}>
+				<div className={s.featuredContentContainer}>
+					<h2>Featured</h2>
+					<div className={s.featuredListWrapper}>
+						{featuredEpisodes.map((ep) => (
+							<CardItem
+								key={ep.id}
+							/>
+						))}
+					</div>
+				</div>
+			</section>
+			<section className={s.sectionContainer}>
+				<div className={s.allEpisodesContentContainer}>
 					<h2>All episodes · <span>16</span></h2>
-					<div className={s.contentListWrapper}>
+					<div className={s.allEpisodesListWrapper}>
 						{allEpisodes.map((ep) => (
 							<ListItem
 								key={ep.id}
@@ -62,6 +76,7 @@ export default function Home({ allEpisodes, featuredEpisodes }: HomeProps) {
 	)
 }
 
+//GETTING DATA
 export const getStaticProps: GetStaticProps = async () => {
 	const { data } = await api.get('episodes', {
 		params: {

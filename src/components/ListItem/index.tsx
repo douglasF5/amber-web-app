@@ -3,6 +3,7 @@ import { Episode } from '../../pages';
 import { Play, ChevronUpMini, AudioBars } from '../Icons';
 import Image from 'next/image';
 
+//TYPES AND INTERFACES
 type ListItemProps = {
     data: Episode;
     isCollapsed: boolean;
@@ -11,6 +12,7 @@ type ListItemProps = {
     handleExpand: () => void;
 }
 
+//COMPONENT DEFINITION
 export function ListItem({
     data,
     isCollapsed,
@@ -18,16 +20,18 @@ export function ListItem({
     handlePlay,
     handleExpand
 }: ListItemProps) {
+
+    //HELPER VARIABLES AND FUNCTIONS
     const i = {
         size: 20,
         color: isCollapsed
             ? 'var(--c-amber-accent-primary)'
             : 'var(--c-amber-on-accent-container-primary)'
     };
-
     const isPlayingClass = isPlaying ? s.isPlayingClass : '';
     const isCollapsedClass = isCollapsed ? s.isCollapsedClass : '';
 
+    //COMPONENT RETURN
     return (
         <article className={`${s.outerWrapper} ${isCollapsedClass}`}>
             <div className={`${s.contentContainer} ${isPlayingClass} ${isCollapsedClass}`}>

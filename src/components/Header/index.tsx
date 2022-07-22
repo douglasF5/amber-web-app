@@ -3,6 +3,7 @@ import enUS from 'date-fns/locale/en-US';
 import s from './styles.module.scss';
 import Image from 'next/image';
 
+//COMPONENT DEFINITION
 export function Header() {
     const currentDate = new Date();
     const longDate = format(currentDate, 'EEE, dd MMM', {
@@ -12,6 +13,7 @@ export function Header() {
         locale: enUS,
     });
 
+    //COMPONENT RETURN
     return (
         <header className={s.sectionContainer}>
             <div className={s.contentContainer}>

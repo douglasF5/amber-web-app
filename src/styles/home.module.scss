@@ -6,7 +6,29 @@
     @include l.sectionContainer;
 }
 
-.contentContainer {
+.featuredListWrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: u.toRem(24);
+}
+
+.featuredContentContainer {
+    @include l.contentContainer;
+    padding: u.toRem(48) 0 u.toRem(56) 0;
+
+    h2 {
+        @include t.heading("L");
+        margin-bottom: u.toRem(24);
+
+        span {
+            font-weight: 400;
+            color: var(--c-on-surface-tertiary);
+        }
+    }
+}
+
+.allEpisodesContentContainer {
     @include l.contentContainer;
     padding-bottom: 64px;
 
@@ -21,7 +43,7 @@
     }
 }
 
-.contentListWrapper {
+.allEpisodesListWrapper {
     display: flex;
     flex-direction: column;
     padding-top: 4px;
