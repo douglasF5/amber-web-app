@@ -50,6 +50,7 @@ export default function Home({ allEpisodes, featuredEpisodes }: HomeProps) {
 						{featuredEpisodes.map((ep) => (
 							<CardItem
 								key={ep.id}
+								data={ep}
 							/>
 						))}
 					</div>

@@ -45,10 +45,10 @@ export function ListItem({
                             <span>Expand item</span>
                         </button>
                         <div className={s.cardCover}>
-                            <Image src='/podcast-cover-placeholder-M.png' width={48} height={48} alt='Cover'/>
+                            <Image src={data.thumbnail} layout='fill' objectFit='cover' objectPosition='left' alt={data.title}/>
                         </div>
                         <h3>{data.title}</h3>
-                        <span className={`${isPlayingClass} ${isCollapsedClass}`}>8 Jan 21 · {data.members}</span>
+                        <span className={`${isPlayingClass} ${isCollapsedClass}`}>{data.publishedAt} · {data.members}</span>
                         <time className={isPlayingClass}>{data.durationAsString}</time>
                     </div>
                     {
@@ -64,7 +64,6 @@ export function ListItem({
                             </button>
                         )
                     }
-                    
                 </header>
                 <div className={s.bodyWrapper}>
                     <p>{data.description}</p>

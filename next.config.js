@@ -13,5 +13,8 @@ module.exports = {
 
     return config
   },
-  reactStrictMode: true
+  reactStrictMode: true,
+  images: {
+    domains: ['storage.googleapis.com']
+  }
 }

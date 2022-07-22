@@ -33,7 +33,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding-right: u.toRem(16);
+        padding-right: u.toRem(24);
         gap: 16px;
 
         &.isCollapsedClass {
@@ -74,6 +74,7 @@
             }
 
             .cardCover {
+                position: relative;
                 aspect-ratio: 1;
                 width: 48px;
                 height: 48px;
