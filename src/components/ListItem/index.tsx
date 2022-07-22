@@ -1,9 +1,10 @@
 import s from './styles.module.scss';
+import { Episode } from '../../pages';
 import { Play, ChevronUpMini, AudioBars } from '../Icons';
 import Image from 'next/image';
 
 type ListItemProps = {
-    data: string;
+    data: Episode;
     isCollapsed: boolean;
     isPlaying: boolean;
     handlePlay: () => void;
@@ -15,8 +16,7 @@ export function ListItem({
     isCollapsed,
     isPlaying,
     handlePlay,
-    handleExpand,
-    ...rest
+    handleExpand
 }: ListItemProps) {
     const i = {
         size: 20,
@@ -43,9 +43,9 @@ export function ListItem({
                         <div className={s.cardCover}>
                             <Image src='/podcast-cover-placeholder-M.png' width={48} height={48} alt='Cover'/>
                         </div>
-                        <h3>Faladev #28 | Por trás de barreiras e soluções propostas por micro-serviços</h3>
-                        <span className={`${isPlayingClass} ${isCollapsedClass}`}>8 Jan 21 · Dego Fernandes, Dani Leão, Wesley Williams e Lucas Santos</span>
-                        <time className={isPlayingClass}>1:35:18</time>
+                        <h3>{data.title}</h3>
+                        <span className={`${isPlayingClass} ${isCollapsedClass}`}>8 Jan 21 · {data.members}</span>
+                        <time className={isPlayingClass}>{data.durationAsString}</time>
                     </div>
                     {
                         isPlaying
@@ -63,9 +63,7 @@ export function ListItem({
                     
                 </header>
                 <div className={s.bodyWrapper}>
-                    <p>Nesse episódio do Faladev, Diego Fernandes se reúne com João Pedro Schmitz, Bruno Lemos e Diego Haz, para discutir sobre a importância da contribuição open source e quais desafios circulam na comunidade. 
-
-A gente passa a maior parte do tempo escrevendo código. Agora chegou o momento de falar sobre isso. Toda semana reunimos profissionais da tecnologia para discutir sobre tudo que circula na órbita da programação. O Faladev é um podcast original Rocketseat.</p>
+                    <p>{data.description}</p>
                     <button type='button' className={`${s.seeLessButton} ${isPlayingClass}`}>
                         See less
                         <ChevronUpMini
