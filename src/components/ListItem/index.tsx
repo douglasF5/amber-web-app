@@ -67,7 +67,7 @@ export function ListItem({
                 </header>
                 <div className={s.bodyWrapper}>
                     <p>{data.description}</p>
-                    <button type='button' className={`${s.seeLessButton} ${isPlayingClass}`}>
+                    <button type='button' className={`${s.seeLessButton} ${isPlayingClass}`} onClick={handleExpand}>
                         See less
                         <ChevronUpMini
                             height={10}

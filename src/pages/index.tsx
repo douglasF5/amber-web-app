@@ -1,12 +1,13 @@
-import s from '../styles/home.module.scss';
+import { api } from '../services/api';
+import { GetStaticProps } from 'next';
+import { PlayerContext } from '../contexts/PlayerContext';
+import { useContext, useState } from 'react';
 import { format, parseISO } from 'date-fns';
 import enUS from 'date-fns/locale/en-US';
-import { GetStaticProps } from 'next';
+import { convertDurationToTimeString } from '../utils/convertDurationToTimeString';
+import s from '../styles/home.module.scss';
 import { CardItem } from "../components/CardItem";
 import { ListItem } from "../components/ListItem";
-import { useState } from 'react';
-import { api } from '../services/api';
-import { convertDurationToTimeString } from '../utils/convertDurationToTimeString';
 
 //TYPES AND INTERFACES
 export type Episode = {
@@ -19,6 +20,8 @@ export type Episode = {
 	duration: number;
 	durationAsString: string;
 	url: string;
+	isPlaying: boolean,
+	isCollapsed: boolean,
 }
 
 type HomeProps = {
@@ -28,15 +31,48 @@ type HomeProps = {
 
 //COMPONENT DEFINITION
 export default function Home({ allEpisodes, featuredEpisodes }: HomeProps) {
+	const { play } = useContext(PlayerContext);
+
+	const [listedEpisodes, setListedEpisodes] = useState(allEpisodes);
 	const [isCollapsed, setIsCollapsed] = useState(true);
 	const [isPlaying, setIsPlaying] = useState(false);
 
-	function handleExpand() {
-		setIsCollapsed(!isCollapsed);
+	function handleExpand(episodeId) {
+		const mappedEpisodes = listedEpisodes.map(ep => {
+			if(ep.id === episodeId) {
+				return {
+					...ep,
+					isCollapsed: !ep.isCollapsed
+				}
+			} else {
+				return {
+					...ep,
+					isCollapsed: true
+				}
+			}
+		});
+
+		setListedEpisodes(mappedEpisodes);
 	}
 
-	function handlePlay() {
-		setIsPlaying(!isPlaying);
+	function handlePlay(episode) {
+		play(episode);
+
+		const mappedEpisodes = listedEpisodes.map(ep => {
+			if(ep.id === episode.id) {
+				return {
+					...ep,
+					isPlaying: true
+				}
+			} else {
+				return {
+					...ep,
+					isPlaying: false
+				}
+			}
+		});
+
+		setListedEpisodes(mappedEpisodes);
 	}
 	
 	//COMPONENT RETURN
@@ -45,7 +81,7 @@ export default function Home({ allEpisodes, featuredEpisodes }: HomeProps) {
 			<h1 className="pageTitle">Amber podcasts</h1>
 			<section className={s.sectionContainer}>
 				<div className={s.featuredContentContainer}>
-					<h2>Featured</h2>
+					<h2>Featured episodes</h2>
 					<div className={s.featuredListWrapper}>
 						{featuredEpisodes.map((ep) => (
 							<CardItem
@@ -60,14 +96,14 @@ export default function Home({ allEpisodes, featuredEpisodes }: HomeProps) {
 				<div className={s.allEpisodesContentContainer}>
 					<h2>All episodes · <span>16</span></h2>
 					<div className={s.allEpisodesListWrapper}>
-						{allEpisodes.map((ep) => (
+						{listedEpisodes.map((ep) => (
 							<ListItem
 								key={ep.id}
 								data={ep}
-								isCollapsed={isCollapsed}
-								isPlaying={isPlaying}
-								handlePlay={handlePlay}
-								handleExpand={handleExpand}
+								isCollapsed={ep.isCollapsed}
+								isPlaying={ep.isPlaying}
+								handlePlay={() => handlePlay(ep)}
+								handleExpand={() => handleExpand(ep.id)}
 							/>
 						))}
 					</div>
@@ -97,7 +133,9 @@ export const getStaticProps: GetStaticProps = async () => {
 			publishedAt: format(parseISO(episode.published_at), 'd MMM yy', {locale: enUS}),
 			duration: Number(episode.file.duration),
 			durationAsString: convertDurationToTimeString(Number(episode.file.duration)),
-			url: episode.file.url
+			url: episode.file.url,
+			isPlaying: false,
+			isCollapsed: true,
 		};
 	});
 
