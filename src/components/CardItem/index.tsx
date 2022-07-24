@@ -6,8 +6,8 @@ import { Play, AudioBars } from '../Icons';
 //TYPE ANNOTATION
 type CardItemProps = {
     data: Episode;
-    isPlaying?: boolean;
-    handlePlay?: () => void;
+    isPlaying: boolean;
+    handlePlay: () => void;
 }
 
 //COMPONENT DEFINITION

@@ -36,7 +36,7 @@ export default function Home({ allEpisodes, featuredEpisodes }: HomeProps) {
 	const [listedEpisodes, setListedEpisodes] = useState(allEpisodes);
 	const [hasEpExpanded, setHasEpExpanded] = useState(false);
 
-	function handleExpand(episodeId) {
+	function handleExpand(episodeId: string) {
 		const mappedEpisodes = listedEpisodes.map(ep => {
 			if(ep.id === episodeId) {
 				const expandedItem = {
@@ -62,7 +62,7 @@ export default function Home({ allEpisodes, featuredEpisodes }: HomeProps) {
 		setListedEpisodes(mappedEpisodes);
 	}
 
-	function handlePlay(episode) {
+	function handlePlay(episode: Episode) {
 		play(episode);
 
 		const mappedEpisodes = listedEpisodes.map(ep => {
@@ -94,6 +94,8 @@ export default function Home({ allEpisodes, featuredEpisodes }: HomeProps) {
 							<CardItem
 								key={ep.id}
 								data={ep}
+								isPlaying={ep.isPlaying}
+								handlePlay={() => handlePlay(ep)}
 							/>
 						))}
 					</div>
@@ -101,7 +103,7 @@ export default function Home({ allEpisodes, featuredEpisodes }: HomeProps) {
 			</section>
 			<section className={s.sectionContainer}>
 				<div className={s.allEpisodesContentContainer}>
-					<h2>All episodes · <span>16</span></h2>
+					<h2>All episodes · <span>{listedEpisodes.length}</span></h2>
 					<div className={`${s.allEpisodesListWrapper} ${hasEpExpanded ? s.hasEpExpandedClass : ''}`}>
 						{listedEpisodes.map((ep) => (
 							<ListItem

@@ -20,6 +20,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
     gap: u.toRem(32);
 }
 
@@ -36,17 +37,37 @@
 
 .textInfoWrapper {
     display: flex;
+    max-width: 280px;
     flex-direction: column;
     justify-content: center;
-    gap: u.toRem(12);
     text-align: center;
+    gap: u.toRem(12);
+    overflow: hidden;
 
     h2 {
         @include t.heading("S");
+
+        white-space: nowrap;
+        // overflow: hidden;
+        // text-overflow: clip;
+        // display: inline-block;
+        transform: translateX(-100%);
+        // padding-left: 100%;
+        animation-name: animateText;
+        animation-iteration-count: infinite;
+        animation-timing-function: linear;
+        animation-fill-mode: forwards;
+        animation-duration: 15000ms;
+        // animation-delay: 1000ms;
     }
 
     p {
         @include t.base("M");
         color: var(--c-amber-accent-secondary);
+    }
+    
+    @keyframes animateText {
+        from{transform: translateX(0%);}
+        to{transform: translateX(-100%);}
     }
 }
