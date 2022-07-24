@@ -44,9 +44,27 @@
 }
 
 .allEpisodesListWrapper {
+    position: relative;
     display: flex;
     flex-direction: column;
     padding-top: 4px;
     gap: 12px;
     border-top: 1px solid var(--c-outline-primary);
+
+    &.hasEpExpandedClass {
+        transition: opacity 500ms ease-in-out;
+    }
+
+    &.hasEpExpandedClass::after {
+        position: absolute;
+        display: block;
+        content: '';
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        background-color: var(--c-surface-primary);
+        opacity: 60%;
+        z-index: 1;
+    }
 }

@@ -3,19 +3,23 @@
 @use '../../styles/base/text' as t;
 
 .outerWrapper {
+    position: relative;
     height: auto;
     overflow: hidden;
     border-radius: 8px;
     margin: 32px 0;
+    z-index: 2;
 
     &.isCollapsedClass {
-        height: 74px;
+        height: 72px;
         margin: 0;
+        z-index: 0;
     }
 }
 
 .contentContainer {
     background-color: var(--c-surface-secondary);
+    opacity: 100% !important;
 
     &.isCollapsedClass {
         background-color: transparent;

@@ -13,14 +13,13 @@ export function PlayerSidebar() {
     //COMPONENT RETURN
     return (
         <aside className={s.sidebarContainer}>
-            <h3>{episode?.title}</h3>
             <div className={s.contentInfoWrapper}>
                 <div className={s.coverWrapper}>
                     <Image src={CoverPlaceholder} alt='Podcast cover'/>
                 </div>
                 <div className={s.textInfoWrapper}>
-                    <h2>Como codar tranquilo</h2>
-                    <p>Tiago e Maria</p>
+                    <h2>{episode?.title}</h2>
+                    <p>{episode?.members}</p>
                 </div>
             </div>
             <PlayerControls />

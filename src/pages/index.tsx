@@ -34,16 +34,23 @@ export default function Home({ allEpisodes, featuredEpisodes }: HomeProps) {
 	const { play } = useContext(PlayerContext);
 
 	const [listedEpisodes, setListedEpisodes] = useState(allEpisodes);
-	const [isCollapsed, setIsCollapsed] = useState(true);
-	const [isPlaying, setIsPlaying] = useState(false);
+	const [hasEpExpanded, setHasEpExpanded] = useState(false);
 
 	function handleExpand(episodeId) {
 		const mappedEpisodes = listedEpisodes.map(ep => {
 			if(ep.id === episodeId) {
-				return {
+				const expandedItem = {
 					...ep,
 					isCollapsed: !ep.isCollapsed
+				};
+
+				if(!expandedItem.isCollapsed) {
+					setHasEpExpanded(true);
+				} else {
+					setHasEpExpanded(false);
 				}
+
+				return expandedItem;
 			} else {
 				return {
 					...ep,
@@ -95,7 +102,7 @@ export default function Home({ allEpisodes, featuredEpisodes }: HomeProps) {
 			<section className={s.sectionContainer}>
 				<div className={s.allEpisodesContentContainer}>
 					<h2>All episodes · <span>16</span></h2>
-					<div className={s.allEpisodesListWrapper}>
+					<div className={`${s.allEpisodesListWrapper} ${hasEpExpanded ? s.hasEpExpandedClass : ''}`}>
 						{listedEpisodes.map((ep) => (
 							<ListItem
 								key={ep.id}
