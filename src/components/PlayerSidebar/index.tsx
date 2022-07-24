@@ -1,6 +1,5 @@
 import s from './styles.module.scss';
 import Image from 'next/image';
-import CoverPlaceholder from '../../../public/podcast-cover-placeholder-L.png';
 import { PlayerControls } from '../PlayerControls';
 import { useContext } from 'react';
 import { PlayerContext } from '../../contexts/PlayerContext';
@@ -15,10 +14,16 @@ export function PlayerSidebar() {
         <aside className={s.sidebarContainer}>
             <div className={s.contentInfoWrapper}>
                 <div className={s.coverWrapper}>
-                    <Image src={CoverPlaceholder} alt='Podcast cover'/>
+                    <Image
+                        src={`${episode?.thumbnail || '/podcast-cover-placeholder-L.png'}`}
+                        alt={`${episode?.title || 'Podcast cover'}`}
+                        layout='fill'
+                        objectFit='cover'
+                        objectPosition='left'
+                    />
                 </div>
                 <div className={s.textInfoWrapper}>
-                    <h2>{episode?.title}</h2>
+                    <h2>{`${episode?.title || 'Select a podcast to start listening'}`}</h2>
                     <p>{episode?.members}</p>
                 </div>
             </div>

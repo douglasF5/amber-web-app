@@ -6,6 +6,14 @@
     &:active {
         transform: scale(0.95);
     }
+
+    &:disabled {
+        cursor: default;
+    }
+
+    &:disabled:active {
+        transform: scale(1);
+    }
 }
 
 @mixin btnIcon($size, $roundCorner) {
@@ -39,7 +47,7 @@
     background-color: transparent;
 
     @media (hover: hover) {
-        &:hover {
+        &:hover:not(:disabled) {
             background-color: var(--c-amber-accent-container-secondary);
         }
     }

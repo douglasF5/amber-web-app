@@ -6,14 +6,18 @@
     display: flex;
     flex-direction: column;
     width: 80%;
-    gap: u.toRem(12);
+    gap: u.toRem(16);
+
+    &.disabledControls {
+        opacity: 50%;
+    }
 }
 
 .playerProgress {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: u.toRem(4);
+    gap: u.toRem(12);
 
     span {
         @include t.mini("M", "regular", "one-liner");

@@ -19,3 +19,9 @@ body {
 h1.pageTitle {
     @include u.srOnly;
 }
+
+//STYES FOR SLIDER COMPONENT
+.rc-slider-handle-dragging {
+    box-shadow: 0px 0px 0px 3px var(--c-amber-accent-container-primary) !important;
+    transition: box-shadow 100ms;
+}
