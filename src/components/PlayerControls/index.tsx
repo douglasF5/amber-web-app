@@ -4,6 +4,8 @@ import { useEffect, useRef, useState } from 'react';
 import Slider from 'rc-slider';
 import { usePlayer } from '../../contexts/PlayerContext';
 import { convertDurationToTimeString } from '../../utils/convertDurationToTimeString';
+import Tippy from '@tippy.js/react';
+import 'tippy.js/dist/tippy.css';
 
 import 'rc-slider/assets/index.css';
 
@@ -121,54 +123,66 @@ export function PlayerControls() {
                 <span>{episode?.durationAsString ?? '00:00:00'}</span>
             </div>
             <div className={s.controlsWrapper}>
-                <button
-                    type="button"
-                    className={`${s.toggleButton} ${isShuffleOn ? s.selectedButton : ''}`}
-                    disabled={!episode}
-                    onClick={toggleShuffle}
-                >
-                    <Shuffle width={i.size} height={i.size} color={i.color} />
-                </button>
-                <button
-                    type="button"
-                    className={s.nextPreviousButton}
-                    disabled={!episode || !hasPrevious}
-                    onClick={playPrevious}
-                >
-                    <PlayPrevious
-                        width={i.size}
-                        height={i.size}
-                        color={i.color}
-                    />
-                </button>
-                <button
-                    type="button"
-                    className={s.playPauseButton}
-                    disabled={!episode}
-					onClick={togglePlay}
-                >
-                    {isPlaying ? (
-                        <Pause width={i.size} height={i.size} color={i.color} />
-                    ) : (
-                        <Play width={i.size} height={i.size} color={i.color} />
-                    )}
-                </button>
-                <button
-                    type="button"
-                    className={s.nextPreviousButton}
-                    disabled={!episode || !hasNext}
-                    onClick={playNext}
-                >
-                    <PlayNext width={i.size} height={i.size} color={i.color} />
-                </button>
-                <button
-                    type="button"
-                    className={`${s.toggleButton} ${isAutoPlayOn ? s.selectedButton : ''}`}
-                    disabled={!episode}
-                    onClick={toggleAutoPlay}
-                >
-                    <Autoplay width={i.size} height={i.size} color={i.color} />
-                </button>
+                <Tippy content={`Shuffle ${isShuffleOn ? 'on' : 'off'}`} distance={8} arrow={false} placement='bottom'>
+                    <button
+                        type="button"
+                        className={`${s.toggleButton} ${isShuffleOn ? s.selectedButton : ''}`}
+                        disabled={!episode}
+                        onClick={toggleShuffle}
+                    >
+                        <Shuffle width={i.size} height={i.size} color={i.color} />
+                    </button>
+                </Tippy>
+                <Tippy content='Play previous' distance={8} arrow={false} placement='bottom'>
+                    <button
+                        type="button"
+                        className={s.nextPreviousButton}
+                        disabled={!episode || !hasPrevious}
+                        onClick={playPrevious}
+                    >
+                        <PlayPrevious
+                            width={i.size}
+                            height={i.size}
+                            color={i.color}
+                        />
+                    </button>
+                </Tippy>
+                <Tippy content={`${isPlaying ? 'Pause' : 'Play'}`} distance={8} arrow={false} placement='bottom'>
+                    <button
+                        type="button"
+                        className={s.playPauseButton}
+                        disabled={!episode}
+                        onClick={togglePlay}
+                    >
+                        {isPlaying ? (
+                            <Pause width={i.size} height={i.size} color={i.color} />
+                        ) : (
+                            <Play width={i.size} height={i.size} color={i.color} />
+                        )}
+                    </button>
+                </Tippy>
+                <Tippy content='Play next' distance={8} arrow={false} placement='bottom'>
+                    <button
+                        type="button"
+                        className={s.nextPreviousButton}
+                        disabled={!episode || !hasNext}
+                        onClick={playNext}
+                        data-tooltip='Play next'
+                    >
+                        <PlayNext width={i.size} height={i.size} color={i.color} />
+                    </button>
+                </Tippy>
+                <Tippy content={`Auto play ${isAutoPlayOn ? 'on' : 'off'}`} distance={8} arrow={false} placement='bottom'>
+                    <button
+                        type="button"
+                        className={`${s.toggleButton} ${isAutoPlayOn ? s.selectedButton : ''}`}
+                        disabled={!episode}
+                        onClick={toggleAutoPlay}
+                        data-tooltip={`Autoplay ${isAutoPlayOn ? 'on' : 'off'}`}
+                    >
+                        <Autoplay width={i.size} height={i.size} color={i.color} />
+                    </button>
+                </Tippy>
             </div>
         </div>
     );
