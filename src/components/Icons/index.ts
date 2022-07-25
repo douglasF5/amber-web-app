@@ -6,4 +6,5 @@ export { default as PlayNext } from "./PlayNext";
 export { default as PlayPrevious } from "./PlayPrevious";
 export { default as Play } from "./Play";
 export { default as Repeat } from "./Repeat";
+export { default as Autoplay } from "./Autoplay";
 export { default as Shuffle } from "./Shuffle";

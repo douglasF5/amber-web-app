@@ -5,15 +5,23 @@
 .playerControlsWrapper {
     display: flex;
     flex-direction: column;
-    width: 80%;
+    width: 90%;
     gap: u.toRem(16);
 }
 
 .playerProgress {
+    position: relative;
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: u.toRem(12);
+
+    .slider {
+        position: absolute;
+        max-width: 138px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
 
     .disabledControls & {
         opacity: 40%;
@@ -21,6 +29,10 @@
 
     span {
         @include t.mini("M", "regular", "one-liner");
+
+        &:last-child {
+            text-align: right;
+        }
     }
 }
 

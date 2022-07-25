@@ -22,7 +22,9 @@ export function PlayerSidebar() {
                     />
                 </div>
                 <div className={s.textInfoWrapper}>
-                    <h2>{`${episode?.title || 'Select a podcast to start listening'}`}</h2>
+                    <div>
+                        <h2>{`${episode?.title || 'Select a podcast to start listening'}`}</h2>
+                    </div>
                     <p>{episode?.members}</p>
                 </div>
             </div>

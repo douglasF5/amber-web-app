@@ -44,9 +44,38 @@
     gap: u.toRem(12);
     overflow: hidden;
 
+    div {
+        position: relative;
+        z-index: 1;
+
+        &::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            background-image: linear-gradient(90deg, rgba(40, 32, 26, 1), rgba(40, 32, 26, 0));
+            width: 20px;
+            height: 100%;
+            z-index: 3;
+        }
+
+        &::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 0;
+            background-image: linear-gradient(90deg, rgba(40, 32, 26, 0), rgba(40, 32, 26, 1));
+            width: 20px;
+            height: 100%;
+            z-index: 3;
+        }
+    }
+
     h2 {
         @include t.heading("S");
 
+        position: relative;
+        z-index: 2;
         white-space: nowrap;
         // overflow: hidden;
         // text-overflow: clip;
@@ -62,7 +91,7 @@
     }
 
     p {
-        @include t.base("M");
+        @include t.base("S");
         color: var(--c-amber-accent-secondary);
     }
     

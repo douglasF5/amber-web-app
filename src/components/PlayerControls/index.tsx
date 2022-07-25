@@ -1,8 +1,9 @@
 import s from './styles.module.scss';
-import { Shuffle, PlayPrevious, Play, PlayNext, Repeat, Pause } from '../Icons';
+import { Shuffle, PlayPrevious, Play, PlayNext, Autoplay, Pause } from '../Icons';
 import { useEffect, useRef, useState } from 'react';
 import Slider from 'rc-slider';
 import { usePlayer } from '../../contexts/PlayerContext';
+import { convertDurationToTimeString } from '../../utils/convertDurationToTimeString';
 
 import 'rc-slider/assets/index.css';
 
@@ -22,18 +23,41 @@ export function PlayerControls() {
         hasPrevious,
         hasNext,
         isShuffleOn,
+        isAutoPlayOn,
 		togglePlay,
 		setPlayingState, 
         playNext,
         playPrevious,
-        toggleShuffle
+        toggleShuffle,
+        toggleAutoPlay,
+        clearPlayerState
 	} = usePlayer();
+
     const episode = episodesList[currentEpisodeIndex];
     
-    const [sliderValue, setSliderValue] = useState(0);
+    const [progress, setProgress] = useState(0);
 
-    function handleSliderProgress(value) {
-        setSliderValue(value);
+    function setUpProgressListener() {
+        audioRef.current.currentTime = 0;
+
+        audioRef.current.addEventListener('timeupdate', () => {
+            setProgress(Math.floor(audioRef.current.currentTime));
+        })
+    }
+
+    function handleSeek(amount: number) {
+        audioRef.current.currentTime = amount;
+        setProgress(amount);
+    }
+
+    function handleAudioEnded() {
+        console.log('hey2');
+
+        if(isAutoPlayOn) {
+            playNext();
+        } else {
+            clearPlayerState();
+        }
     }
 
 	useEffect(() => {
@@ -63,12 +87,16 @@ export function PlayerControls() {
 						ref={audioRef}
 						onPlay={() => setPlayingState(true)}
 						onPause={() => setPlayingState(false)}
+                        onLoadedMetadata={setUpProgressListener}
+                        onEnded={playNext}
+                        
 					/>
 				)
 			}
             <div className={s.playerProgress}>
-                <span>00:00</span>
+                <span>{convertDurationToTimeString(progress)}</span>
                 <Slider
+                    max={episode?.duration ?? 0}
                     trackStyle={{
                         backgroundColor: "var(--c-amber-accent-primary)",
                     }}
@@ -86,10 +114,11 @@ export function PlayerControls() {
                         outline: "none",
                         boxShadow: "0px 0px 0px 0px transparent",
                     }}
-                    value={episode ? sliderValue : null}
-                    // onChange={setSliderValue}
+                    className={s.slider}
+                    value={progress}
+                    onChange={handleSeek}
                 />
-                <span>00:00</span>
+                <span>{episode?.durationAsString ?? '00:00:00'}</span>
             </div>
             <div className={s.controlsWrapper}>
                 <button
@@ -134,9 +163,11 @@ export function PlayerControls() {
                 </button>
                 <button
                     type="button"
-                    className={s.toggleButton}
-                    disabled={!episode}>
-                    <Repeat width={i.size} height={i.size} color={i.color} />
+                    className={`${s.toggleButton} ${isAutoPlayOn ? s.selectedButton : ''}`}
+                    disabled={!episode}
+                    onClick={toggleAutoPlay}
+                >
+                    <Autoplay width={i.size} height={i.size} color={i.color} />
                 </button>
             </div>
         </div>

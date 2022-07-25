@@ -81,7 +81,8 @@ export default function Home({ allEpisodes, featuredEpisodes }: HomeProps) {
 
 		setListedEpisodes(mappedEpisodes);
 
-	}, [currentEpisodeIndex, isPlaying, listedEpisodes]);
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [currentEpisodeIndex]);
 	
 	//COMPONENT RETURN
 	return (
