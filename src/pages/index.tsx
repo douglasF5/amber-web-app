@@ -1,7 +1,7 @@
 import { api } from '../services/api';
 import { GetStaticProps } from 'next';
-import { PlayerContext } from '../contexts/PlayerContext';
-import { useContext, useState } from 'react';
+import { usePlayer } from '../contexts/PlayerContext';
+import { useEffect, useState } from 'react';
 import { format, parseISO } from 'date-fns';
 import enUS from 'date-fns/locale/en-US';
 import { convertDurationToTimeString } from '../utils/convertDurationToTimeString';
@@ -31,7 +31,7 @@ type HomeProps = {
 
 //COMPONENT DEFINITION
 export default function Home({ allEpisodes, featuredEpisodes }: HomeProps) {
-	const { play } = useContext(PlayerContext);
+	const { currentEpisodeIndex, playList, isPlaying } = usePlayer();
 
 	const [listedEpisodes, setListedEpisodes] = useState(allEpisodes);
 	const [hasEpExpanded, setHasEpExpanded] = useState(false);
@@ -62,9 +62,9 @@ export default function Home({ allEpisodes, featuredEpisodes }: HomeProps) {
 		setListedEpisodes(mappedEpisodes);
 	}
 
-	function handlePlay(episode: Episode) {
-		play(episode);
-
+	useEffect(() => {
+		if(!isPlaying) return;
+		const episode = listedEpisodes[currentEpisodeIndex];
 		const mappedEpisodes = listedEpisodes.map(ep => {
 			if(ep.id === episode.id) {
 				return {
@@ -80,7 +80,8 @@ export default function Home({ allEpisodes, featuredEpisodes }: HomeProps) {
 		});
 
 		setListedEpisodes(mappedEpisodes);
-	}
+
+	}, [currentEpisodeIndex, isPlaying, listedEpisodes]);
 	
 	//COMPONENT RETURN
 	return (
@@ -90,12 +91,12 @@ export default function Home({ allEpisodes, featuredEpisodes }: HomeProps) {
 				<div className={s.featuredContentContainer}>
 					<h2>Featured episodes</h2>
 					<div className={s.featuredListWrapper}>
-						{featuredEpisodes.map((ep) => (
+						{featuredEpisodes.map((ep, i) => (
 							<CardItem
 								key={ep.id}
 								data={ep}
 								isPlaying={ep.isPlaying}
-								handlePlay={() => handlePlay(ep)}
+								handlePlay={() => playList(listedEpisodes, i)}
 							/>
 						))}
 					</div>
@@ -105,13 +106,13 @@ export default function Home({ allEpisodes, featuredEpisodes }: HomeProps) {
 				<div className={s.allEpisodesContentContainer}>
 					<h2>All episodes · <span>{listedEpisodes.length}</span></h2>
 					<div className={`${s.allEpisodesListWrapper} ${hasEpExpanded ? s.hasEpExpandedClass : ''}`}>
-						{listedEpisodes.map((ep) => (
+						{listedEpisodes.map((ep, i) => (
 							<ListItem
 								key={ep.id}
 								data={ep}
 								isCollapsed={ep.isCollapsed}
 								isPlaying={ep.isPlaying}
-								handlePlay={() => handlePlay(ep)}
+								handlePlay={() => playList(listedEpisodes, i)}
 								handleExpand={() => handleExpand(ep.id)}
 							/>
 						))}

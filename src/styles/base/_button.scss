@@ -9,6 +9,7 @@
 
     &:disabled {
         cursor: default;
+        opacity: 40%;
     }
 
     &:disabled:active {

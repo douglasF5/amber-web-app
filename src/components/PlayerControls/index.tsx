@@ -1,8 +1,8 @@
 import s from './styles.module.scss';
 import { Shuffle, PlayPrevious, Play, PlayNext, Repeat, Pause } from '../Icons';
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Slider from 'rc-slider';
-import { PlayerContext } from '../../contexts/PlayerContext';
+import { usePlayer } from '../../contexts/PlayerContext';
 
 import 'rc-slider/assets/index.css';
 
@@ -19,14 +19,18 @@ export function PlayerControls() {
 		episodesList,
 		currentEpisodeIndex,
 		isPlaying,
+        hasPrevious,
+        hasNext,
+        isShuffleOn,
 		togglePlay,
-		setPlayingState
-	} = useContext(PlayerContext);
+		setPlayingState, 
+        playNext,
+        playPrevious,
+        toggleShuffle
+	} = usePlayer();
     const episode = episodesList[currentEpisodeIndex];
     
     const [sliderValue, setSliderValue] = useState(0);
-    // const [isShuffleOn, setIsShuffleOn] = useState(false);
-    // const [isLoopOn, setIsLoopOn] = useState(false);
 
     function handleSliderProgress(value) {
         setSliderValue(value);
@@ -90,14 +94,18 @@ export function PlayerControls() {
             <div className={s.controlsWrapper}>
                 <button
                     type="button"
-                    className={s.toggleButton}
-                    disabled={!episode}>
+                    className={`${s.toggleButton} ${isShuffleOn ? s.selectedButton : ''}`}
+                    disabled={!episode}
+                    onClick={toggleShuffle}
+                >
                     <Shuffle width={i.size} height={i.size} color={i.color} />
                 </button>
                 <button
                     type="button"
                     className={s.nextPreviousButton}
-                    disabled={!episode}>
+                    disabled={!episode || !hasPrevious}
+                    onClick={playPrevious}
+                >
                     <PlayPrevious
                         width={i.size}
                         height={i.size}
@@ -108,7 +116,8 @@ export function PlayerControls() {
                     type="button"
                     className={s.playPauseButton}
                     disabled={!episode}
-					onClick={togglePlay}>
+					onClick={togglePlay}
+                >
                     {isPlaying ? (
                         <Pause width={i.size} height={i.size} color={i.color} />
                     ) : (
@@ -118,7 +127,9 @@ export function PlayerControls() {
                 <button
                     type="button"
                     className={s.nextPreviousButton}
-                    disabled={!episode}>
+                    disabled={!episode || !hasNext}
+                    onClick={playNext}
+                >
                     <PlayNext width={i.size} height={i.size} color={i.color} />
                 </button>
                 <button

@@ -1,12 +1,11 @@
 import s from './styles.module.scss';
 import Image from 'next/image';
 import { PlayerControls } from '../PlayerControls';
-import { useContext } from 'react';
-import { PlayerContext } from '../../contexts/PlayerContext';
+import { usePlayer } from '../../contexts/PlayerContext';
 
 //COMPONENT DEFINITION
 export function PlayerSidebar() {
-    const { episodesList, currentEpisodeIndex } = useContext(PlayerContext);
+    const { episodesList, currentEpisodeIndex } = usePlayer();
     const episode = episodesList[currentEpisodeIndex];
 
     //COMPONENT RETURN
