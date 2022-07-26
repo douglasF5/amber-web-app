@@ -1,7 +1,7 @@
 import { api } from '../services/api';
 import { GetStaticProps } from 'next';
 import { usePlayer } from '../contexts/PlayerContext';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { format, parseISO } from 'date-fns';
 import enUS from 'date-fns/locale/en-US';
 import { convertDurationToTimeString } from '../utils/convertDurationToTimeString';
@@ -21,8 +21,8 @@ export type Episode = {
 	duration: number;
 	durationAsString: string;
 	url: string;
-	isPlaying: boolean,
-	isCollapsed: boolean,
+	isPlaying: boolean;
+	isCollapsed: boolean;
 }
 
 type HomeProps = {
@@ -33,10 +33,15 @@ type HomeProps = {
 //COMPONENT DEFINITION
 export default function Home({ allEpisodes, featuredEpisodes }: HomeProps) {
 	const { currentEpisodeIndex, playList } = usePlayer();
-	const [hasEpExpanded, setHasEpExpanded] = useState('');
+	const [epExpanded, setEpExpanded] = useState('');
+	const [highlightListItem, setHighlightListItem] = useState('');
 
 	function handleExpand(episodeId: string) {
-		setHasEpExpanded(prevValue => prevValue === episodeId ? '' : episodeId);
+		setEpExpanded(prevValue => prevValue === episodeId ? '' : episodeId);
+	}
+
+	function handleHighlightListItem(episodeId: string) {
+		setHighlightListItem(prevValue => prevValue === episodeId ? '' : episodeId);
 	}
 	
 	//COMPONENT RETURN
@@ -45,9 +50,7 @@ export default function Home({ allEpisodes, featuredEpisodes }: HomeProps) {
 			<h1 className="pageTitle">Amber podcasts</h1>
 			<section className={s.sectionContainer}>
 				<div className={s.featuredContentContainer}>
-					<Link to='myId'>
-						<h2>Featured episodes</h2>
-					</Link>
+					<h2>Featured episodes</h2>
 					<div className={s.featuredListWrapper}>
 						{featuredEpisodes.map((ep, i) => (
 							<Link
@@ -61,6 +64,7 @@ export default function Home({ allEpisodes, featuredEpisodes }: HomeProps) {
 									key={ep.id}
 									data={ep}
 									handlePlay={() => playList(allEpisodes, i)}
+									handleHighlightListItem={() => handleHighlightListItem(ep.id)}
 								/>
 							</Link>
 						))}
@@ -70,16 +74,17 @@ export default function Home({ allEpisodes, featuredEpisodes }: HomeProps) {
 			<section className={s.sectionContainer}>
 				<div className={s.allEpisodesContentContainer}>
 					<h2>All episodes · <span>{allEpisodes.length}</span></h2>
-					<div className={`${s.allEpisodesListWrapper} ${hasEpExpanded ? s.hasEpExpandedClass : ''}`}>
+					<div className={`${s.allEpisodesListWrapper} ${epExpanded ? s.hasEpExpandedClass : ''}`}>
 						{allEpisodes.map((ep, i) => (
 							<ListItem
 								id={ep.id}
 								key={ep.id}
 								data={ep}
-								isCollapsed={hasEpExpanded !== ep.id}
+								isCollapsed={epExpanded !== ep.id}
 								isPlaying={currentEpisodeIndex === i}
 								handlePlay={() => playList(allEpisodes, i)}
 								handleExpand={() => handleExpand(ep.id)}
+								shouldBlink={highlightListItem === ep.id}
 							/>
 						))}
 					</div>

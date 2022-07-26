@@ -7,12 +7,14 @@ import { Play } from '../Icons';
 type CardItemProps = {
     data: Episode;
     handlePlay: () => void;
+    handleHighlightListItem: () => void;
 }
 
 //COMPONENT DEFINITION
 export function CardItem({
     data,
     handlePlay,
+    handleHighlightListItem
 }: CardItemProps) {
 
     //HELPER VARIABLES AND FUNCTIONS
@@ -23,7 +25,7 @@ export function CardItem({
 
     //COMPONENT RETURN
     return (
-        <article className={s.cardWrapper}>
+        <article className={s.cardWrapper} onClick={handleHighlightListItem}>
             <div className={s.cardCover}>
                 <Image  src={data.thumbnail} objectPosition='left' alt={data.title} layout='fill' objectFit='cover'/>
             </div>

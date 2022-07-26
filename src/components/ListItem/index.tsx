@@ -9,6 +9,7 @@ type ListItemProps = {
     isCollapsed: boolean;
     isPlaying: boolean;
     id: string;
+    shouldBlink: boolean;
     handlePlay: () => void;
     handleExpand: () => void;
 }
@@ -18,6 +19,7 @@ export function ListItem({
     data,
     isCollapsed,
     isPlaying,
+    shouldBlink,
     id,
     handlePlay,
     handleExpand
@@ -30,13 +32,15 @@ export function ListItem({
             ? 'var(--c-amber-accent-primary)'
             : 'var(--c-amber-on-accent-container-primary)'
     };
+
     const isPlayingClass = isPlaying ? s.isPlayingClass : '';
     const isCollapsedClass = isCollapsed ? s.isCollapsedClass : '';
+    const shouldItemBlinkClass = shouldBlink ? s.canBlink : '';
 
     //COMPONENT RETURN
     return (
         <article className={`${s.outerWrapper} ${isCollapsedClass}`} id={id}>
-            <div className={`${s.contentContainer} ${isPlayingClass} ${isCollapsedClass}`}>
+            <div className={`${s.contentContainer} ${isPlayingClass} ${isCollapsedClass} ${shouldItemBlinkClass}`}>
                 <header className={isCollapsedClass}>
                     <div className={`${s.clickableArea} ${isCollapsedClass}`}>
                         <button

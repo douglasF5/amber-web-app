@@ -29,7 +29,31 @@
         background-color: var(--c-amber-accent-container-secondary);
     }
 
-    &:hover {
+    &.canBlink {
+        animation: blink 500ms ease-in-out;
+        animation-delay: 200ms;
+    }
+
+    @keyframes blink {
+        0%{
+            background-color: rgba(245, 163, 81, 0.2);
+            transform: scale(1);
+        }
+        25%{
+            background-color: rgba(245, 163, 81, 0.4);
+            transform: scale(1.02);
+        }
+        50%{
+            background-color: rgba(245, 163, 81, 0.4);
+            transform: scale(1.02);
+        }
+        100%{
+            background-color: initial;
+            transform: scale(1);
+        }
+    }
+
+    &:hover, &.blink:hover {
         background-color: var(--c-surface-secondary);
     }
 
