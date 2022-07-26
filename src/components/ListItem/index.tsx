@@ -8,6 +8,7 @@ type ListItemProps = {
     data: Episode;
     isCollapsed: boolean;
     isPlaying: boolean;
+    id: string;
     handlePlay: () => void;
     handleExpand: () => void;
 }
@@ -17,6 +18,7 @@ export function ListItem({
     data,
     isCollapsed,
     isPlaying,
+    id,
     handlePlay,
     handleExpand
 }: ListItemProps) {
@@ -33,7 +35,7 @@ export function ListItem({
 
     //COMPONENT RETURN
     return (
-        <article className={`${s.outerWrapper} ${isCollapsedClass}`}>
+        <article className={`${s.outerWrapper} ${isCollapsedClass}`} id={id}>
             <div className={`${s.contentContainer} ${isPlayingClass} ${isCollapsedClass}`}>
                 <header className={isCollapsedClass}>
                     <div className={`${s.clickableArea} ${isCollapsedClass}`}>

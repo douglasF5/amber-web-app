@@ -19,6 +19,7 @@ export function PlayerSidebar() {
                         layout='fill'
                         objectFit='cover'
                         objectPosition='left'
+                        priority
                     />
                 </div>
                 <div className={s.textInfoWrapper}>

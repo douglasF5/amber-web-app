@@ -16,8 +16,6 @@ export function PlayerControls() {
         color: 'var(--c-amber-accent-primary)'
     };
 
-    const audioRef = useRef<HTMLAudioElement>(null);
-
     const {
 		episodesList,
 		currentEpisodeIndex,
@@ -35,8 +33,8 @@ export function PlayerControls() {
         clearPlayerState
 	} = usePlayer();
 
+    const audioRef = useRef<HTMLAudioElement>(null);
     const episode = episodesList[currentEpisodeIndex];
-    
     const [progress, setProgress] = useState(0);
 
     function setUpProgressListener() {
@@ -44,6 +42,10 @@ export function PlayerControls() {
 
         audioRef.current.addEventListener('timeupdate', () => {
             setProgress(Math.floor(audioRef.current.currentTime));
+
+            if(audioRef.current.currentTime === episode.duration){
+                handleAudioEnded();
+            }
         })
     }
 
@@ -53,12 +55,12 @@ export function PlayerControls() {
     }
 
     function handleAudioEnded() {
-        console.log('hey2');
+        console.log('Audio ended.');
 
         if(isAutoPlayOn) {
             playNext();
         } else {
-            clearPlayerState();
+            setPlayingState(false);
         }
     }
 
@@ -90,8 +92,6 @@ export function PlayerControls() {
 						onPlay={() => setPlayingState(true)}
 						onPause={() => setPlayingState(false)}
                         onLoadedMetadata={setUpProgressListener}
-                        onEnded={playNext}
-                        
 					/>
 				)
 			}
@@ -167,7 +167,6 @@ export function PlayerControls() {
                         className={s.nextPreviousButton}
                         disabled={!episode || !hasNext}
                         onClick={playNext}
-                        data-tooltip='Play next'
                     >
                         <PlayNext width={i.size} height={i.size} color={i.color} />
                     </button>
@@ -178,7 +177,6 @@ export function PlayerControls() {
                         className={`${s.toggleButton} ${isAutoPlayOn ? s.selectedButton : ''}`}
                         disabled={!episode}
                         onClick={toggleAutoPlay}
-                        data-tooltip={`Autoplay ${isAutoPlayOn ? 'on' : 'off'}`}
                     >
                         <Autoplay width={i.size} height={i.size} color={i.color} />
                     </button>

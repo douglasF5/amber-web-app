@@ -8,6 +8,7 @@ import { convertDurationToTimeString } from '../utils/convertDurationToTimeStrin
 import s from '../styles/home.module.scss';
 import { CardItem } from "../components/CardItem";
 import { ListItem } from "../components/ListItem";
+import { Link } from 'react-scroll';
 
 //TYPES AND INTERFACES
 export type Episode = {
@@ -31,58 +32,12 @@ type HomeProps = {
 
 //COMPONENT DEFINITION
 export default function Home({ allEpisodes, featuredEpisodes }: HomeProps) {
-	const { currentEpisodeIndex, playList, isPlaying } = usePlayer();
-
-	const [listedEpisodes, setListedEpisodes] = useState(allEpisodes);
-	const [hasEpExpanded, setHasEpExpanded] = useState(false);
+	const { currentEpisodeIndex, playList } = usePlayer();
+	const [hasEpExpanded, setHasEpExpanded] = useState('');
 
 	function handleExpand(episodeId: string) {
-		const mappedEpisodes = listedEpisodes.map(ep => {
-			if(ep.id === episodeId) {
-				const expandedItem = {
-					...ep,
-					isCollapsed: !ep.isCollapsed
-				};
-
-				if(!expandedItem.isCollapsed) {
-					setHasEpExpanded(true);
-				} else {
-					setHasEpExpanded(false);
-				}
-
-				return expandedItem;
-			} else {
-				return {
-					...ep,
-					isCollapsed: true
-				}
-			}
-		});
-
-		setListedEpisodes(mappedEpisodes);
+		setHasEpExpanded(prevValue => prevValue === episodeId ? '' : episodeId);
 	}
-
-	useEffect(() => {
-		if(!isPlaying) return;
-		const episode = listedEpisodes[currentEpisodeIndex];
-		const mappedEpisodes = listedEpisodes.map(ep => {
-			if(ep.id === episode.id) {
-				return {
-					...ep,
-					isPlaying: true
-				}
-			} else {
-				return {
-					...ep,
-					isPlaying: false
-				}
-			}
-		});
-
-		setListedEpisodes(mappedEpisodes);
-
-	// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [currentEpisodeIndex]);
 	
 	//COMPONENT RETURN
 	return (
@@ -90,30 +45,40 @@ export default function Home({ allEpisodes, featuredEpisodes }: HomeProps) {
 			<h1 className="pageTitle">Amber podcasts</h1>
 			<section className={s.sectionContainer}>
 				<div className={s.featuredContentContainer}>
-					<h2>Featured episodes</h2>
+					<Link to='myId'>
+						<h2>Featured episodes</h2>
+					</Link>
 					<div className={s.featuredListWrapper}>
 						{featuredEpisodes.map((ep, i) => (
-							<CardItem
+							<Link
 								key={ep.id}
-								data={ep}
-								isPlaying={ep.isPlaying}
-								handlePlay={() => playList(listedEpisodes, i)}
-							/>
+								to={ep.id}
+								smooth={true}
+								offset={-70}
+								duration={500}
+							>
+								<CardItem
+									key={ep.id}
+									data={ep}
+									handlePlay={() => playList(allEpisodes, i)}
+								/>
+							</Link>
 						))}
 					</div>
 				</div>
 			</section>
 			<section className={s.sectionContainer}>
 				<div className={s.allEpisodesContentContainer}>
-					<h2>All episodes · <span>{listedEpisodes.length}</span></h2>
+					<h2>All episodes · <span>{allEpisodes.length}</span></h2>
 					<div className={`${s.allEpisodesListWrapper} ${hasEpExpanded ? s.hasEpExpandedClass : ''}`}>
-						{listedEpisodes.map((ep, i) => (
+						{allEpisodes.map((ep, i) => (
 							<ListItem
+								id={ep.id}
 								key={ep.id}
 								data={ep}
-								isCollapsed={ep.isCollapsed}
-								isPlaying={ep.isPlaying}
-								handlePlay={() => playList(listedEpisodes, i)}
+								isCollapsed={hasEpExpanded !== ep.id}
+								isPlaying={currentEpisodeIndex === i}
+								handlePlay={() => playList(allEpisodes, i)}
 								handleExpand={() => handleExpand(ep.id)}
 							/>
 						))}

@@ -18,10 +18,6 @@
     transition-duration: 100ms;
     transition-timing-function: ease-in-out;
 
-    &.isPlayingClass {
-        background-color: var(--c-amber-accent-container-secondary);
-    }
-
     .cardCover {
         position: relative;
         width: 96px;
@@ -57,10 +53,6 @@
         @include t.base("S", "regular", "one-liner");
         color: var(--c-on-surface-secondary);
         transition: color 100ms ease-in-out;
-
-        &.isPlayingClass {
-            color: var(--c-amber-accent-secondary);
-        }
     }
 
     .playButton {

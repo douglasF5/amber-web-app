@@ -32,7 +32,7 @@ ol[role="list"] {
 }
 
 /* Set core root defaults */
-html:focus-within {
+html, html:focus-within {
   scroll-behavior: smooth;
 }
 
