@@ -61,6 +61,8 @@ export function PlayerControls() {
             playNext();
         } else {
             setPlayingState(false);
+            audioRef.current.currentTime = 0;
+            setProgress(0);
         }
     }
 
