@@ -35,7 +35,7 @@
     position: relative;
     overflow: hidden;
     width: 100%;
-    height: 236px;
+    height: 200px;
 }
 
 .contentInfoWrapper {
@@ -96,6 +96,10 @@
     .toggleFloatingState {
         @include b.btn;
         @include b.buttonIconTertiary(32);
+
+        .flipped {
+            transform: rotateX(180deg);
+        }
 
         @media (hover: hover) {
             &.inverted:hover {
