@@ -1,0 +1,105 @@
+@use '../../styles/base/utils' as u;
+@use '../../styles/base/text' as t;
+@use '../../styles/base/button' as b;
+
+.floatingContainer {
+    position: fixed;
+    right: 16px;
+    bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0 0 u.toRem(16) 0;
+    max-width: u.toRem(318);
+    overflow: hidden;
+    border-radius: 16px;
+    background-color: var(--c-amber-accent-container-primary);
+    z-index: 3;
+    color: var(--c-amber-on-accent-container-primary);
+
+    &::after {
+        content:'';
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        border: 1px solid var(--c-outline-primary);
+        border-radius: 16px;
+        pointer-events: none;
+    }
+}
+
+.coverWrapper {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 236px;
+}
+
+.contentInfoWrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: u.toRem(16) u.toRem(16) u.toRem(20) u.toRem(16);
+    gap: u.toRem(8);
+
+    div {
+        position: relative;
+        z-index: 1;
+
+        // &::before {
+        //     content: '';
+        //     position: absolute;
+        //     left: 0;
+        //     top: 0;
+        //     background-image: linear-gradient(90deg, rgba(40, 32, 26, 1), rgba(40, 32, 26, 0));
+        //     width: 20px;
+        //     height: 100%;
+        //     z-index: 3;
+        // }
+
+        // &::after {
+        //     content: '';
+        //     position: absolute;
+        //     right: 0;
+        //     top: 0;
+        //     background-image: linear-gradient(90deg, rgba(40, 32, 26, 0), rgba(40, 32, 26, 1));
+        //     width: 20px;
+        //     height: 100%;
+        //     z-index: 3;
+        // }
+    }
+
+    h2 {
+        @include t.title("L");
+
+        position: relative;
+        text-align: left;
+        z-index: 2;
+        // white-space: nowrap;
+        // overflow: hidden;
+        // text-overflow: clip;
+        // display: inline-block;
+        // transform: translateX(-100%);
+        // padding-left: 100%;
+        // animation-name: animateText;
+        // animation-iteration-count: infinite;
+        // animation-timing-function: linear;
+        // animation-fill-mode: forwards;
+        // animation-duration: 15000ms;
+        // animation-delay: 1000ms;
+    }
+
+    .toggleFloatingState {
+        @include b.btn;
+        @include b.buttonIconTertiary('inverted', 32);
+    }
+    
+    // @keyframes animateText {
+    //     from{transform: translateX(0%);}
+    //     to{transform: translateX(-100%);}
+    // }
+}

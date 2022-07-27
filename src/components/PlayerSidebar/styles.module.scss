@@ -14,6 +14,7 @@
     height: 100vh;
     border-left: 1px solid var(--c-outline-primary);
     background-image: var(--c-surface-player-widget);
+    z-index: 2;
 }
 
 .contentInfoWrapper {

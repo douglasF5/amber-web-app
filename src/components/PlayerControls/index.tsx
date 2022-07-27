@@ -9,12 +9,24 @@ import 'tippy.js/dist/tippy.css';
 
 import 'rc-slider/assets/index.css';
 
+type PlayerControlProps = {
+    theme: 'default' | 'inverted';
+}
+
 //COMPONENT DEFINITION
-export function PlayerControls() {
+export function PlayerControls({ theme }: PlayerControlProps) {
     const i = {
         size: 24,
-        color: 'var(--c-amber-accent-primary)'
+        color: theme === 'default' ? 'var(--c-amber-accent-container-primary)' : 'var(--c-amber-on-accent-container-primary)'
     };
+    const b = {
+        bgColor: theme === 'default' ? '' : s.inverted
+    }
+    const sliderStyles = {
+        trackColor: theme === 'default' ? 'var(--c-amber-accent-primary)' : 'var(--c-amber-on-accent-container-primary)',
+        railColor: theme === 'default' ? 'var(--c-amber-over-accent-container-secondary)' : 'var(--c-amber-over-accent-container-primary-secondary)',
+        handleColor: theme === 'default' ? 'var(--c-amber-accent-primary)' : 'var(--c-amber-on-accent-container-primary)'
+    }
 
     const {
 		episodesList,
@@ -30,7 +42,6 @@ export function PlayerControls() {
         playPrevious,
         toggleShuffle,
         toggleAutoPlay,
-        clearPlayerState
 	} = usePlayer();
 
     const audioRef = useRef<HTMLAudioElement>(null);
@@ -97,19 +108,18 @@ export function PlayerControls() {
 					/>
 				)
 			}
-            <div className={s.playerProgress}>
+            <div className={s.playerProgress} data-theme={theme}>
                 <span>{convertDurationToTimeString(progress)}</span>
                 <Slider
                     max={episode?.duration ?? 0}
                     trackStyle={{
-                        backgroundColor: "var(--c-amber-accent-primary)",
+                        backgroundColor: sliderStyles.trackColor,
                     }}
                     railStyle={{
-                        backgroundColor:
-                            "var(--c-amber-over-accent-container-secondary)",
+                        backgroundColor: sliderStyles.railColor,
                     }}
                     handleStyle={{
-                        backgroundColor: "var(--c-amber-accent-primary)",
+                        backgroundColor: sliderStyles.handleColor,
                         borderWidth: 0,
                         opacity: "100%",
                         width: 12,
@@ -118,7 +128,7 @@ export function PlayerControls() {
                         outline: "none",
                         boxShadow: "0px 0px 0px 0px transparent",
                     }}
-                    className={s.slider}
+                    className={`${s.slider} ${theme === 'inverted' ? 'inverted' : ''}`}
                     value={progress}
                     onChange={handleSeek}
                 />
@@ -128,7 +138,7 @@ export function PlayerControls() {
                 <Tippy content={`Shuffle ${isShuffleOn ? 'on' : 'off'}`} distance={8} arrow={false} placement='bottom'>
                     <button
                         type="button"
-                        className={`${s.toggleButton} ${isShuffleOn ? s.selectedButton : ''}`}
+                        className={`${s.toggleButton} ${isShuffleOn ? s.selectedButton : ''} ${b.bgColor}`}
                         disabled={!episode}
                         onClick={toggleShuffle}
                     >
@@ -176,7 +186,7 @@ export function PlayerControls() {
                 <Tippy content={`Auto play ${isAutoPlayOn ? 'on' : 'off'}`} distance={8} arrow={false} placement='bottom'>
                     <button
                         type="button"
-                        className={`${s.toggleButton} ${isAutoPlayOn ? s.selectedButton : ''}`}
+                        className={`${s.toggleButton} ${isAutoPlayOn ? s.selectedButton : ''} ${b.bgColor}`}
                         disabled={!episode}
                         onClick={toggleAutoPlay}
                     >

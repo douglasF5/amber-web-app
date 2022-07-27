@@ -42,6 +42,9 @@ export default function Home({ allEpisodes, featuredEpisodes }: HomeProps) {
 
 	function handleHighlightListItem(episodeId: string) {
 		setHighlightListItem(prevValue => prevValue === episodeId ? '' : episodeId);
+		setTimeout(() => {
+			setHighlightListItem('');
+		}, 1000);
 	}
 	
 	//COMPONENT RETURN

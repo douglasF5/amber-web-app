@@ -24,4 +24,8 @@ h1.pageTitle {
 .rc-slider-handle-dragging {
     box-shadow: 0px 0px 0px 3px var(--c-amber-accent-container-primary) !important;
     transition: box-shadow 100ms;
+
+    div[data-theme='inverted'] & {
+        box-shadow: 0px 0px 0px 3px var(--c-amber-on-accent-container-primary) !important;
+    }
 }

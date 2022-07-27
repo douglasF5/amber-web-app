@@ -3,6 +3,7 @@ import s from '../styles/app.module.scss';
 import { Header } from '../components/Header';
 import { PlayerSidebar } from '../components/PlayerSidebar';
 import { PlayerContextProvider } from '../contexts/PlayerContext';
+import { PlayerFloating } from '../components/PlayerFloating';
 
 function MyApp({ Component, pageProps }) {
 	return (
@@ -12,7 +13,8 @@ function MyApp({ Component, pageProps }) {
 					<Header />
 					<Component {...pageProps} />
 				</div>
-				<PlayerSidebar />
+				<PlayerFloating />
+				{/* <PlayerSidebar /> */}
 			</div>
 		</PlayerContextProvider>
   	);

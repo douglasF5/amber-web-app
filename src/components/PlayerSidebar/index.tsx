@@ -19,7 +19,7 @@ export function PlayerSidebar() {
                         layout='fill'
                         objectFit='cover'
                         objectPosition='left'
-                        priority
+                        priority={true}
                     />
                 </div>
                 <div className={s.textInfoWrapper}>
@@ -29,7 +29,7 @@ export function PlayerSidebar() {
                     <p>{episode?.members}</p>
                 </div>
             </div>
-            <PlayerControls />
+            <PlayerControls theme='default' />
         </aside>
     );
 }
