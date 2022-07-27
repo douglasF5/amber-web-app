@@ -20,7 +20,7 @@ export function PlayerControls({ theme }: PlayerControlProps) {
         color: theme === 'default' ? 'var(--c-amber-accent-container-primary)' : 'var(--c-amber-on-accent-container-primary)'
     };
     const b = {
-        bgColor: theme === 'default' ? '' : s.inverted
+        bgColor: theme === 'inverted' ? s.inverted : ''
     }
     const sliderStyles = {
         trackColor: theme === 'default' ? 'var(--c-amber-accent-primary)' : 'var(--c-amber-on-accent-container-primary)',
@@ -148,7 +148,7 @@ export function PlayerControls({ theme }: PlayerControlProps) {
                 <Tippy content='Play previous' distance={8} arrow={false} placement='bottom'>
                     <button
                         type="button"
-                        className={s.nextPreviousButton}
+                        className={`${s.nextPreviousButton} ${b.bgColor}`}
                         disabled={!episode || !hasPrevious}
                         onClick={playPrevious}
                     >
@@ -162,7 +162,7 @@ export function PlayerControls({ theme }: PlayerControlProps) {
                 <Tippy content={`${isPlaying ? 'Pause' : 'Play'}`} distance={8} arrow={false} placement='bottom'>
                     <button
                         type="button"
-                        className={s.playPauseButton}
+                        className={`${s.playPauseButton} ${b.bgColor}`}
                         disabled={!episode}
                         onClick={togglePlay}
                     >
@@ -176,7 +176,7 @@ export function PlayerControls({ theme }: PlayerControlProps) {
                 <Tippy content='Play next' distance={8} arrow={false} placement='bottom'>
                     <button
                         type="button"
-                        className={s.nextPreviousButton}
+                        className={`${s.nextPreviousButton} ${b.bgColor}`}
                         disabled={!episode || !hasNext}
                         onClick={playNext}
                     >

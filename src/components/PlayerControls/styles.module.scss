@@ -21,10 +21,6 @@
         max-width: 138px;
         left: 50%;
         transform: translateX(-50%);
-
-        &.inverted {
-            max-width: 200px;
-        }
     }
 
     .disabledControls & {
@@ -48,15 +44,31 @@
 }
 
 .playPauseButton {
-    @include b.buttonIconSecondary('inverted');
+    @include b.buttonIconSecondary;
+
+    &.inverted {
+        background-color: var(--c-amber-over-accent-container-primary);
+    }
 }
 
 .nextPreviousButton {
-    @include b.buttonIconTertiary('inverted');
+    @include b.buttonIconTertiary;
+
+    @media (hover: hover) {
+        &.inverted:hover {
+            background-color: var(--c-amber-over-accent-container-primary);
+        }
+    }
 }
 
 .toggleButton {
-    @include b.buttonIconTertiary('inverted');
+    @include b.buttonIconTertiary;
+    
+    @media (hover: hover) {
+        &.inverted:hover {
+            background-color: var(--c-amber-over-accent-container-primary);
+        }
+    }
 
     &.selectedButton.inverted {
         background-color: var(--c-amber-over-accent-container-primary);

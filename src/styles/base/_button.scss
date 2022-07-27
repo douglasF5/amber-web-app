@@ -34,34 +34,24 @@
     background-color: var(--c-amber-accent-container-primary);
 }
 
-@mixin buttonIconSecondary($theme: 'default', $size: 40, $roundCorner: 8) {
+@mixin buttonIconSecondary($size: 40, $roundCorner: 8) {
     @include btn;
     @include btnIcon($size, $roundCorner);
 
-    
-    @if $theme == 'default' {
-        background-color: var(--c-amber-accent-container-secondary);
-    } @else {
-        background-color: var(--c-amber-over-accent-container-primary);
-    }
+    background-color: var(--c-amber-accent-container-secondary);
 }
 
-@mixin buttonIconTertiary($theme: 'default', $size: 40, $roundCorner: 8) {
+@mixin buttonIconTertiary($size: 40, $roundCorner: 8) {
     @include btn;
     @include btnIcon($size, $roundCorner);
 
     background-color: transparent;
 
     @media (hover: hover) {
-        @if $theme == 'default' {
-            &:hover:not(:disabled) {
-                background-color: var(--c-amber-accent-container-secondary);
-            }
-        } @else {
-            &:hover:not(:disabled) {
-                background-color: var(--c-amber-over-accent-container-primary);
-            }
+        &:hover:not(:disabled) {
+            background-color: var(--c-amber-accent-container-secondary);
         }
+
     }
 }
 

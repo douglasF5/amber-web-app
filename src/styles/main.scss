@@ -21,6 +21,13 @@ h1.pageTitle {
 }
 
 //STYES FOR SLIDER COMPONENT
+
+div[data-theme='inverted'] {
+    .rc-slider {
+        max-width: 165px;
+    }
+}
+
 .rc-slider-handle-dragging {
     box-shadow: 0px 0px 0px 3px var(--c-amber-accent-container-primary) !important;
     transition: box-shadow 100ms;

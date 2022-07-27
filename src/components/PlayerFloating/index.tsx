@@ -33,7 +33,7 @@ export function PlayerFloating() {
                 </div>
                 <button
                         type="button"
-                        className={`${s.toggleFloatingState}`}
+                        className={`${s.toggleFloatingState} ${s.inverted}`}
                         // onClick={}
                     >
                         <ChevronUp width={i.size} height={i.size} color={i.color} />

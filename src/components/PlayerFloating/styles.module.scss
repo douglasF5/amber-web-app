@@ -95,7 +95,13 @@
 
     .toggleFloatingState {
         @include b.btn;
-        @include b.buttonIconTertiary('inverted', 32);
+        @include b.buttonIconTertiary(32);
+
+        @media (hover: hover) {
+            &.inverted:hover {
+                background-color: var(--c-amber-over-accent-container-primary);
+            }
+        }
     }
     
     // @keyframes animateText {
