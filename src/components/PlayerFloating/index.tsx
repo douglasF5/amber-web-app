@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { PlayerControls } from '../PlayerControls';
 import { usePlayer } from '../../contexts/PlayerContext';
 import { ChevronUp } from '../Icons';
-import { motion, useAnimationControls, MotionConfig } from 'framer-motion';
+import { motion, useAnimationControls, MotionConfig, useDragControls } from 'framer-motion';
 import { RefObject } from 'react';
 
 type PlayerFloatingProps = {
@@ -71,6 +71,11 @@ export function PlayerFloating({ dragContraints }: PlayerFloatingProps) {
         toggleIsPlayerCollapsed();
     }
 
+    const dragControls = useDragControls();
+    function startDrag(event) {
+        dragControls.start(event);
+    }
+
     // const [ref, { height }] = useMeasure();
 
     //COMPONENT RETURN
@@ -78,9 +83,10 @@ export function PlayerFloating({ dragContraints }: PlayerFloatingProps) {
         <MotionConfig transition={{ duration: 0.2, type: "tween" }}>
             <motion.aside
                 variants={container}
-                // initial='expanded'
                 animate={controls}
                 drag='x'
+                dragControls={dragControls}
+                dragListener={false}
                 dragConstraints={dragContraints}
                 dragMomentum={false}
                 className={s.floatingContainer}
@@ -99,6 +105,7 @@ export function PlayerFloating({ dragContraints }: PlayerFloatingProps) {
                     variants={title}
                     animate={controls}
                     className={s.contentInfoWrapper}
+                    onPointerDown={startDrag}
                 >
                     <h2 className={`${playerStateClass}`}>
                         {`${episode?.title || 'Select a podcast to start listening'}`}
