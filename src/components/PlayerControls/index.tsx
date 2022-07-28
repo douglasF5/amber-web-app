@@ -77,7 +77,11 @@ export function PlayerControls({ theme }: PlayerControlProps) {
                     value={progress}
                     onChange={handleSeek}
                 />
-                <span>{episode?.durationAsString ?? '00:00:00'}</span>
+                <time
+                    dateTime={convertDurationToTimeString(progress, 'long')}
+                >
+                    {episode?.durationAsString ?? '00:00:00'}
+                </time>
             </div>
             <div className={s.controlsWrapper}>
                 <Tippy content={`Shuffle ${isShuffleOn ? 'on' : 'off'}`} distance={8} arrow={false} placement='bottom'>

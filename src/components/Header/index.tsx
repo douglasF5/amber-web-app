@@ -9,7 +9,7 @@ export function Header() {
     const longDate = format(currentDate, 'EEE, dd MMM', {
         locale: enUS,
     });
-    const shortDate = format(currentDate, 'P', {
+    const shortDate = format(currentDate, 'yyyy/MM/dd', {
         locale: enUS,
     });
 

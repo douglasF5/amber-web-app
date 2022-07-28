@@ -27,7 +27,7 @@
         opacity: 50%;
     }
 
-    span {
+    span, time {
         @include t.mini("M", "regular", "one-liner");
         user-select: none;
 

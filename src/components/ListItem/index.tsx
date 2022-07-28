@@ -2,6 +2,7 @@ import s from './styles.module.scss';
 import { Episode } from '../../pages';
 import { Play, ChevronUpMini, AudioBars } from '../Icons';
 import Image from 'next/image';
+import { convertDurationToTimeString } from '../../utils/convertDurationToTimeString';
 
 //TYPES AND INTERFACES
 type ListItemProps = {
@@ -55,7 +56,12 @@ export function ListItem({
                         </div>
                         <h3>{data.title}</h3>
                         <span className={`${isPlayingClass} ${isCollapsedClass}`}>{data.publishedAt} · {data.members}</span>
-                        <time className={isPlayingClass}>{data.durationAsString}</time>
+                        <time
+                            className={isPlayingClass}
+                            dateTime={convertDurationToTimeString(data.duration, 'long')}
+                        >
+                            {data.durationAsString}
+                        </time>
                     </div>
                     {
                         isPlaying

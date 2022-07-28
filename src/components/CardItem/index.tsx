@@ -2,6 +2,7 @@ import s from './styles.module.scss';
 import { Episode } from '../../pages';
 import Image from 'next/image';
 import { Play } from '../Icons';
+import { convertDurationToTimeString } from '../../utils/convertDurationToTimeString';
 
 //TYPE ANNOTATION
 type CardItemProps = {
@@ -32,7 +33,7 @@ export function CardItem({
             <div className={s.textContentWrapper}>
                 <h1 className={s.cardTitle}>{data.title}</h1>
                 <div className={s.timeInfoWrapper}>
-                    <time>{data.durationAsString}</time> · <time>{data.publishedAt}</time>
+                    <time dateTime={convertDurationToTimeString(data.duration, 'long')}>{data.durationAsString}</time> · <time>{data.publishedAt}</time>
                 </div>
             </div>
             <button
