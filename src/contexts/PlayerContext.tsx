@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useContext, useState } from "react";
+import { createContext, ReactNode, useContext, useEffect, useRef, useState } from "react";
 
 //TYPE ANNOTATION
 type Episode = {
@@ -19,6 +19,7 @@ type PlayerContextType = {
     isShuffleOn: boolean;
     isAutoPlayOn: boolean;
     isPlayerCollapsed: boolean;
+    progress: number;
     playList: (list: Episode[], index: number) => void;
     togglePlay: () => void;
     setPlayingState: (state: boolean) => void;
@@ -28,18 +29,20 @@ type PlayerContextType = {
     toggleAutoPlay: () => void;
     clearPlayerState: () => void;
     toggleIsPlayerCollapsed: () => void;
+    handleSeek: (amount: number) => void;
+}
+
+type PlayerContextProviderProps = {
+    children: ReactNode;
 }
 
 //PLAYER CONTEXT
 export const PlayerContext = createContext({} as PlayerContextType);
 
-//TYPE ANNOTATION
-type PlayerContextProviderProps = {
-    children: ReactNode;
-}
-
 //CONTEXT PROVIDER
 export function PlayerContextProvider({ children }: PlayerContextProviderProps) {
+
+    //VARIABLES AND STATE
     const [episodesList, setEpisodesList] = useState([]);
 	const [currentEpisodeIndex, setCurrentEpisodeIndex] = useState(-1);
 	const [isPlaying, setIsPlaying] = useState(false);
@@ -49,7 +52,11 @@ export function PlayerContextProvider({ children }: PlayerContextProviderProps) 
     const [isShuffleOn, setIsShuffleOn] = useState(false);
     const [isAutoPlayOn, setIsAutoPlayOn] = useState(false);
     const [isPlayerCollapsed, setIsPlayerCollapsed] = useState(false);
+    const audioRef = useRef<HTMLAudioElement>(null);
+    const episode = episodesList[currentEpisodeIndex];
+    const [progress, setProgress] = useState(0);
 
+    //FUNCTIONS
     function playList(list: Episode[], index: number) {
         setIsPlaying(true);
         setEpisodesList(list);
@@ -105,31 +112,90 @@ export function PlayerContextProvider({ children }: PlayerContextProviderProps) 
         setIsPlayerCollapsed(!isPlayerCollapsed);
     }
 
-  return (
+    function setUpProgressListener() {
+        audioRef.current.currentTime = 0;
+
+        audioRef.current.addEventListener('timeupdate', () => {
+            setProgress(Math.floor(audioRef.current.currentTime));
+
+            if(audioRef.current.currentTime === episode.duration){
+                handleAudioEnded();
+            }
+        })
+    }
+
+    function handleSeek(amount: number) {
+        audioRef.current.currentTime = amount;
+        setProgress(amount);
+    }
+
+    function handleAudioEnded() {
+        console.log('Audio ended.');
+
+        if(isAutoPlayOn) {
+            playNext();
+        } else {
+            setPlayingState(false);
+            audioRef.current.currentTime = 0;
+            setProgress(0);
+        }
+    }
+
+    //EFFECT
+    useEffect(() => {
+		if(!audioRef.current) {
+			return;
+		}
+
+		if(isPlaying) {
+			audioRef.current.play();
+		} else {
+			audioRef.current.pause();
+		}
+
+	}, [isPlaying]);
+
+    //RETURN STATEMENT
+    return (
     <PlayerContext.Provider value={{
-		episodesList,
-		currentEpisodeIndex,
+        episodesList,
+        currentEpisodeIndex,
         hasPrevious,
         hasNext,
         isShuffleOn,
         isAutoPlayOn,
         playList,
-		isPlaying,
+        isPlaying,
         isPlayerCollapsed,
-		togglePlay,
-		setPlayingState,
+        progress,
+        togglePlay,
+        setPlayingState,
         playNext,
         playPrevious,
         toggleShuffle,
         toggleAutoPlay,
         clearPlayerState,
-        toggleIsPlayerCollapsed
-	}}>
-        {children}
-    </PlayerContext.Provider>
-  )
+        toggleIsPlayerCollapsed,
+        handleSeek
+    }}>
+            {children}
+            {
+				episode && (
+					<audio
+						src={episode.url}
+						autoPlay
+						ref={audioRef}
+						onPlay={() => setPlayingState(true)}
+						onPause={() => setPlayingState(false)}
+                        onLoadedMetadata={setUpProgressListener}
+					/>
+				)
+			}
+        </PlayerContext.Provider>
+    )
 }
 
+//EXPORTING CUSTOM HOOK
 export const usePlayer = () => {
     return useContext(PlayerContext);
 };

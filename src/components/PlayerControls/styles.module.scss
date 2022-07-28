@@ -29,6 +29,7 @@
 
     span {
         @include t.mini("M", "regular", "one-liner");
+        user-select: none;
 
         &:last-child {
             text-align: right;

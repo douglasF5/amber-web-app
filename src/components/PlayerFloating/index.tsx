@@ -76,8 +76,6 @@ export function PlayerFloating({ dragContraints }: PlayerFloatingProps) {
         dragControls.start(event);
     }
 
-    // const [ref, { height }] = useMeasure();
-
     //COMPONENT RETURN
     return (
         <MotionConfig transition={{ duration: 0.2, type: "tween" }}>

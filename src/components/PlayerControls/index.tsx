@@ -36,59 +36,16 @@ export function PlayerControls({ theme }: PlayerControlProps) {
         hasNext,
         isShuffleOn,
         isAutoPlayOn,
+        progress,
 		togglePlay,
-		setPlayingState, 
         playNext,
         playPrevious,
         toggleShuffle,
         toggleAutoPlay,
+        handleSeek
 	} = usePlayer();
 
-    const audioRef = useRef<HTMLAudioElement>(null);
     const episode = episodesList[currentEpisodeIndex];
-    const [progress, setProgress] = useState(0);
-
-    function setUpProgressListener() {
-        audioRef.current.currentTime = 0;
-
-        audioRef.current.addEventListener('timeupdate', () => {
-            setProgress(Math.floor(audioRef.current.currentTime));
-
-            if(audioRef.current.currentTime === episode.duration){
-                handleAudioEnded();
-            }
-        })
-    }
-
-    function handleSeek(amount: number) {
-        audioRef.current.currentTime = amount;
-        setProgress(amount);
-    }
-
-    function handleAudioEnded() {
-        console.log('Audio ended.');
-
-        if(isAutoPlayOn) {
-            playNext();
-        } else {
-            setPlayingState(false);
-            audioRef.current.currentTime = 0;
-            setProgress(0);
-        }
-    }
-
-	useEffect(() => {
-		if(!audioRef.current) {
-			return;
-		}
-
-		if(isPlaying) {
-			audioRef.current.play();
-		} else {
-			audioRef.current.pause();
-		}
-
-	}, [isPlaying]);
 
     //COMPONENT RETURN
     return (
@@ -96,18 +53,6 @@ export function PlayerControls({ theme }: PlayerControlProps) {
             className={`${s.playerControlsWrapper} ${
                 !episode ? s.disabledControls : ""
             }`}>
-            {
-				episode && (
-					<audio
-						src={episode.url}
-						autoPlay
-						ref={audioRef}
-						onPlay={() => setPlayingState(true)}
-						onPause={() => setPlayingState(false)}
-                        onLoadedMetadata={setUpProgressListener}
-					/>
-				)
-			}
             <div className={s.playerProgress} data-theme={theme}>
                 <span>{convertDurationToTimeString(progress)}</span>
                 <Slider
