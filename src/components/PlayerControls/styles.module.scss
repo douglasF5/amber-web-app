@@ -55,7 +55,7 @@
     @include b.buttonIconTertiary;
 
     @media (hover: hover) {
-        &.inverted:hover {
+        &.inverted:not(:disabled):hover {
             background-color: var(--c-amber-over-accent-container-primary);
         }
     }
@@ -65,7 +65,7 @@
     @include b.buttonIconTertiary;
     
     @media (hover: hover) {
-        &.inverted:hover {
+        &.inverted:not(:disabled):hover {
             background-color: var(--c-amber-over-accent-container-primary);
         }
     }

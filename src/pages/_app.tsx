@@ -5,10 +5,11 @@ import { PlayerSidebar } from '../components/PlayerSidebar';
 import { PlayerContextProvider } from '../contexts/PlayerContext';
 import { PlayerFloating } from '../components/PlayerFloating';
 import { useMediaQuery } from 'react-responsive';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 function MyApp({ Component, pageProps }) {
 	const [playerType, setPlayerType] = useState(null);
+	const dragConstraints = useRef();
 	const breakPoint = useMediaQuery({
 		query: '(max-width: 1450px)'
 	});
@@ -16,7 +17,7 @@ function MyApp({ Component, pageProps }) {
 	useEffect(() => {
 		setPlayerType(
 				breakPoint
-				? <PlayerFloating />
+				? <PlayerFloating dragContraints={dragConstraints} />
 				: <PlayerSidebar />
 		);
 	}, [breakPoint]);
@@ -24,7 +25,7 @@ function MyApp({ Component, pageProps }) {
 
 	return (
 		<PlayerContextProvider>
-			<div className={s.pageWrapper}>
+			<div className={s.pageWrapper} ref={dragConstraints}>
 				<div className={s.mainContentWrapper}>
 					<Header />
 					<Component {...pageProps} />
