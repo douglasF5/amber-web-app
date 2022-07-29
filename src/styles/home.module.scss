@@ -1,6 +1,7 @@
 @use './base/layout' as l;
 @use './base/text' as t;
 @use './base/utils' as u;
+@use './base/breakpoints' as br;
 
 .sectionContainer {
     @include l.sectionContainer;
@@ -14,6 +15,15 @@
 
     & > * {
         flex: 0 1 100%;
+    }
+
+    @include br.custom(825) {
+        justify-content: flex-start;
+
+        & > * {
+            flex: auto;
+            max-width: min-content;
+        }
     }
 }
 

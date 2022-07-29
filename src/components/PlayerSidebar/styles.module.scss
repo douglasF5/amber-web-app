@@ -45,59 +45,12 @@
     gap: u.toRem(12);
     overflow: hidden;
 
-    div {
-        position: relative;
-        z-index: 1;
-
-        &::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            background-image: linear-gradient(90deg, rgba(40, 32, 26, 1), rgba(40, 32, 26, 0));
-            width: 20px;
-            height: 100%;
-            z-index: 3;
-        }
-
-        &::after {
-            content: '';
-            position: absolute;
-            right: 0;
-            top: 0;
-            background-image: linear-gradient(90deg, rgba(40, 32, 26, 0), rgba(40, 32, 26, 1));
-            width: 20px;
-            height: 100%;
-            z-index: 3;
-        }
-    }
-
     h2 {
         @include t.heading("S");
-
-        position: relative;
-        z-index: 2;
-        white-space: nowrap;
-        // overflow: hidden;
-        // text-overflow: clip;
-        // display: inline-block;
-        transform: translateX(-100%);
-        // padding-left: 100%;
-        animation-name: animateText;
-        animation-iteration-count: infinite;
-        animation-timing-function: linear;
-        animation-fill-mode: forwards;
-        animation-duration: 15000ms;
-        // animation-delay: 1000ms;
     }
 
     p {
         @include t.base("S");
         color: var(--c-amber-accent-secondary);
-    }
-    
-    @keyframes animateText {
-        from{transform: translateX(0%);}
-        to{transform: translateX(-100%);}
     }
 }

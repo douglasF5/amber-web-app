@@ -2,8 +2,10 @@
 @use '../../styles/base/utils' as u;
 @use '../../styles/base/text' as t;
 @use '../../styles/base/button' as b;
+@use '../../styles/base/breakpoints' as br;
 
 .cardWrapper {
+    position: relative;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -14,9 +16,18 @@
     border: 1px solid var(--c-outline-primary);
     border-radius: 16px;
     cursor: pointer;
-    transition-property: background-color;
-    transition-duration: 100ms;
-    transition-timing-function: ease-in-out;
+
+    @include br.custom(825) {
+        flex: auto;
+        flex-direction: column;
+        justify-content:flex-start;
+        align-items: flex-start;
+        padding: 0;
+        gap: u.toRem(12);
+        background-color: transparent;
+        border: none;
+        border-radius: 0;
+    }
 
     .cardCover {
         position: relative;
@@ -27,6 +38,11 @@
         border-radius: 12px;
         overflow: hidden;
         flex-shrink: 0;
+
+        @include br.custom(825) {
+            width: 250px;
+            height: 250px;
+        }
     }
 
     .textContentWrapper {
@@ -36,6 +52,11 @@
         flex-direction: column;
         justify-content: space-between;
         gap: u.toRem(8);
+
+        @include br.custom(825) {
+            flex: auto;
+            align-self: flex-start;
+        }
     }
 
     .cardTitle {
@@ -47,26 +68,25 @@
         -webkit-line-clamp: 3;
         -webkit-box-orient: vertical;
         white-space: normal;
+
+        @include br.custom(825) {
+            -webkit-line-clamp: 2;
+        }
     }
 
     .timeInfoWrapper {
         @include t.base("S", "regular", "one-liner");
         color: var(--c-on-surface-secondary);
-        transition: color 100ms ease-in-out;
     }
 
     .playButton {
         @include b.buttonIconPrimary(40, 10);
         align-self: flex-end;
-    }
 
-    .audioBarsWrapper {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        align-self: flex-end;
-        width: 32px;
-        height: 32px;
-        aspect-ratio: 1;
+        @include br.custom(825) {
+            position: absolute;
+            right: 8px;
+            top: 61.5%;
+        }
     }
 }

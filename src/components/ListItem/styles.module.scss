@@ -1,17 +1,16 @@
 @use '../../styles/base/button' as b;
 @use '../../styles/base/utils' as u;
 @use '../../styles/base/text' as t;
+@use '../../styles/base/breakpoints' as br;
 
 .outerWrapper {
     position: relative;
-    height: auto;
     overflow: hidden;
     border-radius: 8px;
     margin: 32px 0;
     z-index: 2;
 
     &.isCollapsedClass {
-        height: 72px;
         margin: 0;
         z-index: 0;
     }
@@ -19,7 +18,6 @@
 
 .contentContainer {
     background-color: var(--c-surface-secondary);
-    opacity: 100% !important;
 
     &.isCollapsedClass {
         background-color: transparent;
@@ -81,6 +79,14 @@
             padding: u.toRem(16) 0 u.toRem(16) u.toRem(16);
             gap: 8px 16px;
 
+            @include br.custom(834) {
+                grid-template-columns: auto auto 1fr;
+                grid-template-areas:
+                    "img title title"
+                    "img duration info";
+                gap: 8px 12px;
+            }
+
             &.isCollapsedClass {
                 padding: u.toRem(12) 0 u.toRem(12) u.toRem(12);
             }
@@ -110,12 +116,23 @@
                 border-radius: 8px;
                 overflow: hidden;
                 grid-area: img;
+                align-self: flex-start;
             }
 
             h3 {
                 @include t.title("L");
                 grid-area: title;
                 align-self: flex-start;
+
+                @include br.custom(834) {
+                    white-space: normal;
+                    max-width: 100%;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    display: -webkit-box !important;
+                    -webkit-line-clamp: 2;
+                    -webkit-box-orient: vertical;
+                }
             }
 
             span {
@@ -132,6 +149,17 @@
 					color: var(--c-on-surface-primary);
 					font-weight: 500;
 				}
+
+                @include br.custom(834) {
+                    max-width: 100%;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+
+                    &.isCollapsedClass::after {
+                        content: '';
+                    }
+                }
             }
 
             time {
@@ -141,6 +169,10 @@
 
                 &.isPlayingClass {
                     color: var(--c-amber-accent-secondary);
+                }
+
+                @include br.custom(834) {
+                    justify-self: normal;
                 }
             }
         }

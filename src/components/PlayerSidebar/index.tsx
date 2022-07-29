@@ -2,6 +2,7 @@ import s from './styles.module.scss';
 import Image from 'next/image';
 import { PlayerControls } from '../PlayerControls';
 import { usePlayer } from '../../contexts/PlayerContext';
+import { motion, AnimatePresence } from 'framer-motion';
 
 //COMPONENT DEFINITION
 export function PlayerSidebar() {
@@ -10,7 +11,7 @@ export function PlayerSidebar() {
 
     //COMPONENT RETURN
     return (
-        <aside className={s.sidebarContainer}>
+        <motion.aside className={s.sidebarContainer} initial={{x: 50}} animate={{x: 0}}>
             <div className={s.contentInfoWrapper}>
                 <div className={s.coverWrapper}>
                     <Image
@@ -23,13 +24,11 @@ export function PlayerSidebar() {
                     />
                 </div>
                 <div className={s.textInfoWrapper}>
-                    <div>
-                        <h2>{`${episode?.title || 'Select a podcast to start listening'}`}</h2>
-                    </div>
+                    <h2>{`${episode?.title || 'Select a podcast to start listening'}`}</h2>
                     <p>{episode?.members}</p>
                 </div>
             </div>
             <PlayerControls theme='default' />
-        </aside>
+        </motion.aside>
     );
 }

@@ -19,9 +19,13 @@ export function Header() {
             <div className={s.contentContainer}>
                 <div>
                     <Image src='/logo.svg' alt="Amber" width={121} height={25}/>
-                    <span>You listen to the best, always</span>
+                    <span className={s.tagline}>You listen to the best, always</span>
                 </div>
-                <time dateTime={shortDate}>{longDate}</time>
+                <div>
+                    <a href="https://github.com/douglasF5" target='_blank' rel='noreferrer'>@douglasF5</a>
+                    <span>·</span>
+                    <time dateTime={shortDate}>{longDate}</time>
+                </div>
             </div>
         </header>
     );

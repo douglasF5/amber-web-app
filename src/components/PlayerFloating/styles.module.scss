@@ -49,9 +49,6 @@
     h2 {
         @include t.title("L");
 
-        position: relative;
-        text-align: left;
-        z-index: 2;
         cursor: grab;
 
         &:active {

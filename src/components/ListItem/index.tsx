@@ -77,17 +77,20 @@ export function ListItem({
                         )
                     }
                 </header>
-                <div className={s.bodyWrapper}>
-                    <p>{data.description}</p>
-                    <button type='button' className={`${s.seeLessButton} ${isPlayingClass}`} onClick={handleExpand}>
-                        See less
-                        <ChevronUpMini
-                            height={10}
-                            width={10}
-                            color={isPlaying ? 'var(--c-amber-accent-primary)' : 'var(--c-on-surface-primary)'}
-                        />
-                    </button>
-                </div>
+                {
+                    !isCollapsed &&
+                        <div className={s.bodyWrapper}>
+                            <p>{data.description}</p>
+                            <button type='button' className={`${s.seeLessButton} ${isPlayingClass}`} onClick={handleExpand}>
+                                See less
+                                <ChevronUpMini
+                                    height={10}
+                                    width={10}
+                                    color={isPlaying ? 'var(--c-amber-accent-primary)' : 'var(--c-on-surface-primary)'}
+                                />
+                            </button>
+                        </div>
+                }
             </div>
         </article>
     );

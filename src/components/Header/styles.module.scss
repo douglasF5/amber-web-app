@@ -1,6 +1,7 @@
 @use '../../styles/base/layout' as l;
 @use '../../styles/base/utils' as u;
 @use '../../styles/base/text' as t;
+@use '../../styles/base/breakpoints' as br;
 
 .sectionContainer {
     @include l.sectionContainer;
@@ -22,12 +23,30 @@
         align-items: center;
         gap: u.toRem(16);
 
-        span {
+        .tagline {
             @include t.base("M", "regular", "one-liner");
 
             padding-left: u.toRem(16);
             border-left: 1px solid var(--c-outline-primary);
             color: var(--c-on-surface-secondary);
+
+            @include br.custom(713) {
+                @include u.srOnly;
+            }
+        }
+
+        a {
+            @include t.base("M", "regular", "one-liner");
+            text-decoration: none;
+            color: var(--c-on-surface-secondary);
+            
+            &:hover {
+                color: var(--c-amber-accent-primary);
+            }
+        }
+
+        span {
+            color: var(--c-on-surface-tertiary);
         }
 
         time {
