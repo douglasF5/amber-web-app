@@ -43,14 +43,23 @@
             &:hover {
                 color: var(--c-amber-accent-primary);
             }
+
+            @include br.custom(400) {
+                @include u.srOnly;
+            }
         }
 
-        span {
+        .dot {
             color: var(--c-on-surface-tertiary);
+
+            @include br.custom(400) {
+                @include u.srOnly;
+            }
         }
 
         time {
             @include t.base("M", "regular", "one-liner");
+            white-space: nowrap;
         }
     }
 }

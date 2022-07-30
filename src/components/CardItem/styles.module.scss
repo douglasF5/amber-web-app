@@ -43,6 +43,11 @@
             width: 250px;
             height: 250px;
         }
+
+        @include br.custom(572) {
+            width: 198px;
+            height: 198px;
+        }
     }
 
     .textContentWrapper {
@@ -72,6 +77,10 @@
         @include br.custom(825) {
             -webkit-line-clamp: 2;
         }
+
+        @include br.custom(572) {
+            @include t.base("S");
+        }
     }
 
     .timeInfoWrapper {
@@ -87,6 +96,11 @@
             position: absolute;
             right: 8px;
             top: 61.5%;
+        }
+
+        @include br.custom(572) {
+            right: 8px;
+            top: 55%;
         }
     }
 }

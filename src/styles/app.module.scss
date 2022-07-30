@@ -1,7 +1,13 @@
+@use './base/breakpoints' as br;
+
 .pageWrapper {
     display: flex;
 }
 
 .mainContentWrapper {
     flex: 1;
+
+    @include br.custom(500) {
+        overflow-x: hidden;
+    }
 }

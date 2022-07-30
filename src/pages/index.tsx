@@ -61,7 +61,7 @@ export default function Home({ allEpisodes, featuredEpisodes }: HomeProps) {
 								to={ep.id}
 								smooth={true}
 								offset={-70}
-								duration={500}
+								duration={400}
 							>
 								<CardItem
 									key={ep.id}
@@ -74,7 +74,7 @@ export default function Home({ allEpisodes, featuredEpisodes }: HomeProps) {
 					</div>
 				</div>
 			</section>
-			<section className={s.sectionContainer}>
+			<section className={s.allEpisodesSectionContainer}>
 				<div className={s.allEpisodesContentContainer}>
 					<h2>All episodes · <span>{allEpisodes.length}</span></h2>
 					<div className={`${s.allEpisodesListWrapper} ${epExpanded ? s.hasEpExpandedClass : ''}`}>

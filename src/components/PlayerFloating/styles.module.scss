@@ -47,7 +47,7 @@
     gap: u.toRem(8);
 
     h2 {
-        @include t.title("L");
+        @include t.base("S", "semibold");
 
         cursor: grab;
 

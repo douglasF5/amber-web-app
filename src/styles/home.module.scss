@@ -5,6 +5,10 @@
 
 .sectionContainer {
     @include l.sectionContainer;
+
+    @include br.custom(500) {
+        padding: 0;
+    }
 }
 
 .featuredListWrapper {
@@ -25,20 +29,48 @@
             max-width: min-content;
         }
     }
+
+    @include br.custom(500) {
+        padding: 0 u.toRem(24);
+        overflow-x: scroll;
+        overflow-y: hidden;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+
+        &::-webkit-scrollbar { 
+            display: none;
+        }
+    }
 }
 
 .featuredContentContainer {
     @include l.contentContainer;
     padding: u.toRem(48) 0 u.toRem(56) 0;
 
+    @include br.custom(572) {
+        padding: u.toRem(32) 0 u.toRem(48) 0;
+    }
+
     h2 {
         @include t.heading("L");
         margin-bottom: u.toRem(24);
 
-        span {
-            font-weight: 400;
-            color: var(--c-on-surface-tertiary);
+        @include br.custom(572) {
+            @include t.heading("S");
+            margin-bottom: u.toRem(16);
         }
+
+        @include br.custom(500) {
+            padding: 0 u.toRem(24);
+        }
+    }
+}
+
+.allEpisodesSectionContainer {
+    @include l.sectionContainer;
+
+    @include br.custom(500) {
+        padding: 0;
     }
 }
 
@@ -46,9 +78,22 @@
     @include l.contentContainer;
     padding-bottom: 64px;
 
+    @include br.custom(1450) {
+        padding-bottom: 135px;
+    }
+
     h2 {
         @include t.heading("L");
         margin-bottom: u.toRem(24);
+
+        @include br.custom(572) {
+            @include t.heading("S");
+            margin-bottom: u.toRem(16);
+        }
+
+        @include br.custom(500) {
+            padding: 0 u.toRem(24);
+        }
 
         span {
             font-weight: 400;
@@ -64,6 +109,10 @@
     padding-top: 4px;
     gap: 12px;
     border-top: 1px solid var(--c-outline-primary);
+
+    @include br.custom(500) {
+        gap: 8px;
+    }
 
     &.hasEpExpandedClass {
         transition: opacity 500ms ease-in-out;

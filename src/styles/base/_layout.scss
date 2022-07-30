@@ -1,5 +1,11 @@
+@use './breakpoints' as br;
+
 @mixin sectionContainer {
     padding: 0 48px;
+
+    @include br.custom(706) {
+        padding: 0 24px;
+    }
 }
 
 @mixin contentContainer {

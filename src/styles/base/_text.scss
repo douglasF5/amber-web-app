@@ -55,6 +55,7 @@ $mini-sizes: (
 }
 
 @mixin base($size, $weight: "regular", $height: 135%) {
+  font-family: $font-face-primary;
   font-size: map-get($base-sizes, $size);
   font-weight: map-get($font-weights, $weight);
   line-height: getLineHeight($height);

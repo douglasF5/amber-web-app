@@ -28,7 +28,7 @@ type PlayerContextType = {
     toggleShuffle: () => void;
     toggleAutoPlay: () => void;
     clearPlayerState: () => void;
-    toggleIsPlayerCollapsed: () => void;
+    toggleIsPlayerCollapsed: (option?: boolean) => void;
     handleSeek: (amount: number) => void;
 }
 
@@ -108,8 +108,13 @@ export function PlayerContextProvider({ children }: PlayerContextProviderProps) 
         setIsPlaying(false);
     }
 
-    function toggleIsPlayerCollapsed() {
-        setIsPlayerCollapsed(!isPlayerCollapsed);
+    function toggleIsPlayerCollapsed(option: boolean = null) {
+        if(option === null) {
+            setIsPlayerCollapsed(!isPlayerCollapsed);
+        } else {
+            setIsPlayerCollapsed(option);
+        }
+
     }
 
     function setUpProgressListener() {

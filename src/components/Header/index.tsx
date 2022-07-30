@@ -23,7 +23,7 @@ export function Header() {
                 </div>
                 <div>
                     <a href="https://github.com/douglasF5" target='_blank' rel='noreferrer'>@douglasF5</a>
-                    <span>·</span>
+                    <span className={s.dot}>·</span>
                     <time dateTime={shortDate}>{longDate}</time>
                 </div>
             </div>

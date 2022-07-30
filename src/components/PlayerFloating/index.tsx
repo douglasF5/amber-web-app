@@ -4,7 +4,7 @@ import { PlayerControls } from '../PlayerControls';
 import { usePlayer } from '../../contexts/PlayerContext';
 import { ChevronUp } from '../Icons';
 import { motion, useAnimationControls, MotionConfig, useDragControls } from 'framer-motion';
-import { RefObject } from 'react';
+import { RefObject, useEffect } from 'react';
 
 type PlayerFloatingProps = {
     dragContraints: RefObject<HTMLElement>;
@@ -56,8 +56,6 @@ export function PlayerFloating({ dragContraints }: PlayerFloatingProps) {
         color: 'var(--c-amber-on-accent-container-primary)',
     };
 
-    const playerStateClass = isPlayerCollapsed ? s.isCollapsedClass : '';
-
     const controls = useAnimationControls();
 
     function expandPlayer() {
@@ -75,6 +73,11 @@ export function PlayerFloating({ dragContraints }: PlayerFloatingProps) {
     function startDrag(event) {
         dragControls.start(event);
     }
+
+    useEffect(() =>{
+        toggleIsPlayerCollapsed(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     //COMPONENT RETURN
     return (
@@ -105,7 +108,7 @@ export function PlayerFloating({ dragContraints }: PlayerFloatingProps) {
                     className={s.contentInfoWrapper}
                     onPointerDown={startDrag}
                 >
-                    <h2 className={`${playerStateClass}`}>
+                    <h2 className={`${isPlayerCollapsed ? s.isCollapsedClass : ''}`}>
                         {`${episode?.title || 'Select a podcast to start listening'}`}
                     </h2>
                     <button
