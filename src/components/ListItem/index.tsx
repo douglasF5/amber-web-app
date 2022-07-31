@@ -3,6 +3,7 @@ import { Episode } from '../../pages';
 import { Play, ChevronUpMini, AudioBars } from '../Icons';
 import Image from 'next/image';
 import { convertDurationToTimeString } from '../../utils/convertDurationToTimeString';
+import { motion, AnimatePresence, useAnimationControls } from 'framer-motion';
 
 //TYPES AND INTERFACES
 type ListItemProps = {
@@ -38,16 +39,42 @@ export function ListItem({
     const isCollapsedClass = isCollapsed ? s.isCollapsedClass : '';
     const shouldItemBlinkClass = shouldBlink ? s.canBlink : '';
 
+    const listItemVariants = {
+        collapsed: {
+            margin: '0px 0'
+        },
+        expanded: {
+            margin: '32px 0'
+        },
+    }
+    const listItemAnimationControls = useAnimationControls();
+
+    function onHandleExpand() {
+        handleExpand();
+
+        if(isCollapsed) {
+            listItemAnimationControls.start('expanded');
+        } else {
+            // listItemAnimationControls.start({margin: '0 0', transition: {duration: 1}});
+            listItemAnimationControls.start('collapsed');
+        }
+    }
+
     //COMPONENT RETURN
     return (
-        <article className={`${s.outerWrapper} ${isCollapsedClass}`} id={id}>
+        <motion.article
+            animate={listItemAnimationControls}
+            variants={listItemVariants}
+            className={`${s.outerWrapper} ${isCollapsedClass}`}
+            id={id}
+        >
             <div className={`${s.contentContainer} ${isPlayingClass} ${isCollapsedClass} ${shouldItemBlinkClass}`}>
                 <header className={isCollapsedClass}>
                     <div className={`${s.clickableArea} ${isCollapsedClass}`}>
                         <button
                             type='button'
                             className={s.expandButton}
-                            onClick={handleExpand}
+                            onClick={onHandleExpand}
                         >
                             <span>Expand item</span>
                         </button>
@@ -77,9 +104,12 @@ export function ListItem({
                         )
                     }
                 </header>
-                {
-                    !isCollapsed &&
-                        <div className={s.bodyWrapper}>
+                    {!isCollapsed && (
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            className={s.bodyWrapper}
+                        >
                             <p>{data.description}</p>
                             <button type='button' className={`${s.seeLessButton} ${isPlayingClass}`} onClick={handleExpand}>
                                 See less
@@ -89,9 +119,9 @@ export function ListItem({
                                     color={isPlaying ? 'var(--c-amber-accent-primary)' : 'var(--c-on-surface-primary)'}
                                 />
                             </button>
-                        </div>
-                }
+                        </motion.div>
+                    )}
             </div>
-        </article>
+        </motion.article>
     );
 }

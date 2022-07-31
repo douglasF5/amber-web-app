@@ -114,10 +114,6 @@
         gap: 8px;
     }
 
-    &.hasEpExpandedClass {
-        transition: opacity 500ms ease-in-out;
-    }
-
     &.hasEpExpandedClass::after {
         position: absolute;
         display: block;
