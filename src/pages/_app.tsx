@@ -6,6 +6,7 @@ import { PlayerContextProvider, usePlayer } from '../contexts/PlayerContext';
 import { PlayerFloating } from '../components/PlayerFloating';
 import { useMediaQuery } from 'react-responsive';
 import { useState, useEffect, useRef } from 'react';
+import Head from 'next/head';
 
 function MyApp({ Component, pageProps }) {
 
@@ -28,6 +29,10 @@ function MyApp({ Component, pageProps }) {
 	//RETURN STATEMENT
 	return (
 		<PlayerContextProvider>
+			<Head>
+				<title>Amber podcasts</title>
+        		<meta name="viewport" content="initial-scale=1.0, width=device-width" />
+			</Head>
 			<div className={s.pageWrapper} ref={dragConstraints}>
 				<div className={s.mainContentWrapper}>
 					<Header />

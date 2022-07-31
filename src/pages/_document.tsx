@@ -5,7 +5,7 @@ export default class MyDocument extends Document {
         return (
             <Html>
                 <Head>
-                <meta charSet="utf-8" />
+                    <meta charSet="utf-8" />
                     <meta name="author" content="Douglas Ferreira" />
                     <meta name="robots" content="noindex, nofollow" />
                     <link rel="icon" type="image/png" href="./favicon.png" />
