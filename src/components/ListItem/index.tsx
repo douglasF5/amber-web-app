@@ -55,7 +55,6 @@ export function ListItem({
         if(isCollapsed) {
             listItemAnimationControls.start('expanded');
         } else {
-            // listItemAnimationControls.start({margin: '0 0', transition: {duration: 1}});
             listItemAnimationControls.start('collapsed');
         }
     }
@@ -111,7 +110,7 @@ export function ListItem({
                             className={s.bodyWrapper}
                         >
                             <p>{data.description}</p>
-                            <button type='button' className={`${s.seeLessButton} ${isPlayingClass}`} onClick={handleExpand}>
+                            <button type='button' className={`${s.seeLessButton} ${isPlayingClass}`} onClick={onHandleExpand}>
                                 See less
                                 <ChevronUpMini
                                     height={10}

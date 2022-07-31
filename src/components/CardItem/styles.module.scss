@@ -102,5 +102,11 @@
             right: 8px;
             top: 55%;
         }
+
+        @media (hover:hover) {
+            &:hover {
+                filter:brightness(110%)
+            }
+        }
     }
 }

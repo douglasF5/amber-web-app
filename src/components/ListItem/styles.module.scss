@@ -7,7 +7,6 @@
     position: relative;
     overflow: hidden;
     border-radius: 8px;
-    // margin: 32px 0;
     z-index: 2;
 
     @include br.custom(500) {
@@ -15,7 +14,6 @@
     }
 
     &.isCollapsedClass {
-        // margin: 0;
         z-index: 0;
     }
 }
@@ -272,6 +270,12 @@
     @include br.custom(766) {
         margin-top: 16px;
         align-self: flex-start;
+    }
+
+    @media (hover:hover) {
+        &:hover {
+            filter:brightness(110%)
+        }
     }
 }
 
