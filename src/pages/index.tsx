@@ -31,7 +31,7 @@ type HomeProps = {
 }
 
 //COMPONENT DEFINITION
-function Home({ allEpisodes, featuredEpisodes }: HomeProps) {
+export default function Home({ allEpisodes, featuredEpisodes }: HomeProps) {
 	const { currentEpisodeIndex, playList } = usePlayer();
 	const [epExpanded, setEpExpanded] = useState('');
 	const [highlightListItem, setHighlightListItem] = useState('');
