@@ -86,7 +86,7 @@ export default function Home() {
 				<div className={s.featuredContentContainer}>
 					<h2>Featured episodes</h2>
 					<div className={s.featuredListWrapper}>
-						{episodes.featuredEpisodes.map((ep, i) => (
+						{episodes.featuredEpisodes && episodes.featuredEpisodes.map((ep, i) => (
 							<Link
 								key={ep.id}
 								to={ep.id}
@@ -107,9 +107,9 @@ export default function Home() {
 			</section>
 			<section className={s.allEpisodesSectionContainer}>
 				<div className={s.allEpisodesContentContainer}>
-					<h2>All episodes · <span>{episodes.allEpisodes.length}</span></h2>
+					<h2>All episodes · <span>{episodes.allEpisodes && episodes.allEpisodes.length}</span></h2>
 					<div className={`${s.allEpisodesListWrapper} ${epExpanded ? s.hasEpExpandedClass : ''}`}>
-						{episodes.allEpisodes.map((ep, i) => (
+						{episodes.allEpisodes && episodes.allEpisodes.map((ep, i) => (
 							<ListItem
 								id={ep.id}
 								key={ep.id}
