@@ -1,7 +1,7 @@
 import { api } from '../services/api';
 import { GetStaticProps } from 'next';
 import { usePlayer } from '../contexts/PlayerContext';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { format, parseISO } from 'date-fns';
 import enUS from 'date-fns/locale/en-US';
 import { convertDurationToTimeString } from '../utils/convertDurationToTimeString';
@@ -31,7 +31,8 @@ type HomeProps = {
 }
 
 //COMPONENT DEFINITION
-export default function Home({ allEpisodes, featuredEpisodes }: HomeProps) {
+export default function Home() {
+	const [episodes, setEpisodes] = useState({} as HomeProps);
 	const { currentEpisodeIndex, playList } = usePlayer();
 	const [epExpanded, setEpExpanded] = useState('');
 	const [highlightListItem, setHighlightListItem] = useState('');
@@ -46,6 +47,36 @@ export default function Home({ allEpisodes, featuredEpisodes }: HomeProps) {
 			setHighlightListItem('');
 		}, 1000);
 	}
+
+	//GETTING DATA
+	useEffect(() => {
+		const getData = async () => {
+			const { data } = await api.get('episodes');
+
+			const allEpisodes = data.episodes.map((episode) => {
+				return {
+					id: episode.id,
+					title: episode.title,
+					thumbnail: episode.thumbnail,
+					members: episode.members,
+					description: episode.description,
+					publishedAt: format(parseISO(episode.published_at), 'd MMM yy', {locale: enUS}),
+					duration: Number(episode.file.duration),
+					durationAsString: convertDurationToTimeString(Number(episode.file.duration)),
+					url: episode.file.url,
+					isPlaying: false,
+					isCollapsed: true,
+				};
+			});
+
+			const featuredEpisodes = [allEpisodes[0], allEpisodes[1]];
+
+			setEpisodes({allEpisodes, featuredEpisodes});
+		}
+
+		getData();
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 	
 	//COMPONENT RETURN
 	return (
@@ -55,7 +86,7 @@ export default function Home({ allEpisodes, featuredEpisodes }: HomeProps) {
 				<div className={s.featuredContentContainer}>
 					<h2>Featured episodes</h2>
 					<div className={s.featuredListWrapper}>
-						{featuredEpisodes.map((ep, i) => (
+						{episodes.featuredEpisodes.map((ep, i) => (
 							<Link
 								key={ep.id}
 								to={ep.id}
@@ -66,7 +97,7 @@ export default function Home({ allEpisodes, featuredEpisodes }: HomeProps) {
 								<CardItem
 									key={ep.id}
 									data={ep}
-									handlePlay={() => playList(allEpisodes, i)}
+									handlePlay={() => playList(episodes.allEpisodes, i)}
 									handleHighlightListItem={() => handleHighlightListItem(ep.id)}
 								/>
 							</Link>
@@ -76,16 +107,16 @@ export default function Home({ allEpisodes, featuredEpisodes }: HomeProps) {
 			</section>
 			<section className={s.allEpisodesSectionContainer}>
 				<div className={s.allEpisodesContentContainer}>
-					<h2>All episodes · <span>{allEpisodes.length}</span></h2>
+					<h2>All episodes · <span>{episodes.allEpisodes.length}</span></h2>
 					<div className={`${s.allEpisodesListWrapper} ${epExpanded ? s.hasEpExpandedClass : ''}`}>
-						{allEpisodes.map((ep, i) => (
+						{episodes.allEpisodes.map((ep, i) => (
 							<ListItem
 								id={ep.id}
 								key={ep.id}
 								data={ep}
 								isCollapsed={epExpanded !== ep.id}
 								isPlaying={currentEpisodeIndex === i}
-								handlePlay={() => playList(allEpisodes, i)}
+								handlePlay={() => playList(episodes.allEpisodes, i)}
 								handleExpand={() => handleExpand(ep.id)}
 								shouldBlink={highlightListItem === ep.id}
 							/>
@@ -97,39 +128,43 @@ export default function Home({ allEpisodes, featuredEpisodes }: HomeProps) {
 	)
 }
 
+
 //GETTING DATA
-export const getStaticProps: GetStaticProps = async () => {
-	const { data } = await api.get('episodes', {
-		params: {
-			_limit: 12,
-			_sort: 'published_at',
-			_order: 'desc'
-		}
-	});
+// export const getStaticProps: GetStaticProps = async () => {
+// 	const {data} = await api.get('episodes');
+// 	console.log(data);
 
-	const allEpisodes = data.map((episode) => {
-		return {
-			id: episode.id,
-			title: episode.title,
-			thumbnail: episode.thumbnail,
-			members: episode.members,
-			description: episode.description,
-			publishedAt: format(parseISO(episode.published_at), 'd MMM yy', {locale: enUS}),
-			duration: Number(episode.file.duration),
-			durationAsString: convertDurationToTimeString(Number(episode.file.duration)),
-			url: episode.file.url,
-			isPlaying: false,
-			isCollapsed: true,
-		};
-	});
+	// {
+	// 	params: {
+	// 		_limit: 12,
+	// 		_sort: 'published_at',
+	// 		_order: 'desc'
+	// 	}
+	// }
 
-	const featuredEpisodes = [allEpisodes[0], allEpisodes[1]];
+	// const allEpisodes = data.map((episode) => {
+	// 	return {
+	// 		id: episode.id,
+	// 		title: episode.title,
+	// 		thumbnail: episode.thumbnail,
+	// 		members: episode.members,
+	// 		description: episode.description,
+	// 		publishedAt: format(parseISO(episode.published_at), 'd MMM yy', {locale: enUS}),
+	// 		duration: Number(episode.file.duration),
+	// 		durationAsString: convertDurationToTimeString(Number(episode.file.duration)),
+	// 		url: episode.file.url,
+	// 		isPlaying: false,
+	// 		isCollapsed: true,
+	// 	};
+	// });
 
-	return {
-		props: {
-			allEpisodes,
-			featuredEpisodes
-		},
-		revalidate: 60 * 60 * 8
-	}
-}
+	// const featuredEpisodes = [allEpisodes[0], allEpisodes[1]];
+
+	// return {
+	// 	props: {
+	// 		allEpisodes,
+	// 		featuredEpisodes
+	// 	},
+	// 	revalidate: 60 * 60 * 8
+	// }
+// }
