@@ -14,7 +14,7 @@ type ListItemProps = {
     shouldBlink: boolean;
     handlePlay: () => void;
     handleExpand: () => void;
-}
+};
 
 //COMPONENT DEFINITION
 export function ListItem({
@@ -46,13 +46,13 @@ export function ListItem({
         expanded: {
             margin: '32px 0'
         },
-    }
+    };
     const listItemAnimationControls = useAnimationControls();
 
     function onHandleExpand() {
         handleExpand();
 
-        if(isCollapsed) {
+        if (isCollapsed) {
             listItemAnimationControls.start('expanded');
         } else {
             listItemAnimationControls.start('collapsed');
@@ -78,7 +78,7 @@ export function ListItem({
                             <span>Expand item</span>
                         </button>
                         <div className={s.cardCover}>
-                            <Image src={data.thumbnail} layout='fill' objectFit='cover' objectPosition='left' alt={data.title}/>
+                            <Image src={data.thumbnail} layout='fill' objectFit='cover' objectPosition='left' alt={data.title} />
                         </div>
                         <h3>{data.title}</h3>
                         <span className={`${isPlayingClass} ${isCollapsedClass}`}>{data.publishedAt} · {data.members}</span>
@@ -91,36 +91,57 @@ export function ListItem({
                     </div>
                     {
                         isPlaying
-                        ? <div className={s.audioBarsWrapper}><AudioBars width={i.size} height={i.size} color='var(--c-amber-accent-primary)'/></div>
-                        : (
-                            <button
-                                type='button'
-                                className={isCollapsedClass ? s.playButtonSecondary : s.playButtonPrimary}
-                                onClick={handlePlay}
-                            >
-                                <Play width={i.size} height={i.size} color={i.color}/>
-                            </button>
-                        )
+                            ? <div className={s.audioBarsWrapper}><AudioBars width={i.size} height={i.size} color='var(--c-amber-accent-primary)' /></div>
+                            : (
+                                <button
+                                    type='button'
+                                    className={isCollapsedClass ? s.playButtonSecondary : s.playButtonPrimary}
+                                    onClick={handlePlay}
+                                >
+                                    <Play width={i.size} height={i.size} color={i.color} />
+                                </button>
+                            )
                     }
                 </header>
-                    {!isCollapsed && (
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            className={s.bodyWrapper}
-                        >
-                            <p>{data.description}</p>
-                            <button type='button' className={`${s.seeLessButton} ${isPlayingClass}`} onClick={onHandleExpand}>
-                                See less
-                                <ChevronUpMini
-                                    height={10}
-                                    width={10}
-                                    color={isPlaying ? 'var(--c-amber-accent-primary)' : 'var(--c-on-surface-primary)'}
-                                />
-                            </button>
-                        </motion.div>
-                    )}
+                {!isCollapsed && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        className={s.bodyWrapper}
+                    >
+                        <p>{data.description}</p>
+                        <button type='button' className={`${s.seeLessButton} ${isPlayingClass}`} onClick={onHandleExpand}>
+                            See less
+                            <ChevronUpMini
+                                height={10}
+                                width={10}
+                                color={isPlaying ? 'var(--c-amber-accent-primary)' : 'var(--c-on-surface-primary)'}
+                            />
+                        </button>
+                    </motion.div>
+                )}
             </div>
         </motion.article>
+    );
+}
+
+export function ShimmerListItem() {
+    const componentStructure = <div className={s.shimmerItem}>
+        <div className={s.imagePlaceholder} />
+        <div className={s.contentPlaceholder}>
+            <div className={s.contentLinePlaceholder} />
+            <div className={s.contentLinePlaceholder} />
+        </div>
+    </div>;
+
+    return (
+        <>
+            {componentStructure}
+            {componentStructure}
+            {componentStructure}
+            {componentStructure}
+            {componentStructure}
+            {componentStructure}
+        </>
     );
 }

@@ -9,7 +9,7 @@ type CardItemProps = {
     data: Episode;
     handlePlay: () => void;
     handleHighlightListItem: () => void;
-}
+};
 
 //COMPONENT DEFINITION
 export function CardItem({
@@ -28,7 +28,7 @@ export function CardItem({
     return (
         <article className={s.cardWrapper} onClick={handleHighlightListItem}>
             <div className={s.cardCover}>
-                <Image  src={data.thumbnail} objectPosition='left' alt={data.title} layout='fill' objectFit='cover'/>
+                <Image src={data.thumbnail} objectPosition='left' alt={data.title} layout='fill' objectFit='cover' />
             </div>
             <div className={s.textContentWrapper}>
                 <h1 className={s.cardTitle}>{data.title}</h1>
@@ -41,8 +41,17 @@ export function CardItem({
                 className={s.playButton}
                 onClick={handlePlay}
             >
-                <Play width={i.size} height={i.size} color={i.color}/>
+                <Play width={i.size} height={i.size} color={i.color} />
             </button>
         </article>
+    );
+}
+
+export function ShimmerCardItem() {
+    return (
+        <>
+            <div className={s.shimmerBox}></div>
+            <div className={s.shimmerBox}></div>
+        </>
     );
 }

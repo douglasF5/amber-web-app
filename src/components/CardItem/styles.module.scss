@@ -4,6 +4,28 @@
 @use '../../styles/base/button' as b;
 @use '../../styles/base/breakpoints' as br;
 
+.shimmerBox {
+    height: 136px;
+    background-image: linear-gradient(270deg,
+            rgba(189, 224, 249, 0.03) 0%,
+            rgba(189, 224, 249, 0.08) 50%,
+            rgba(189, 224, 249, 0.03) 100%);
+    background-size: 400% 400%;
+    border: 1px solid transparent;
+    border-radius: 16px;
+    animation: shimmer 800ms ease-in-out infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: 0% 0%;
+    }
+
+    100% {
+        background-position: -135% 0%;
+    }
+}
+
 .cardWrapper {
     position: relative;
     display: flex;
@@ -20,7 +42,7 @@
     @include br.custom(825) {
         flex: auto;
         flex-direction: column;
-        justify-content:flex-start;
+        justify-content: flex-start;
         align-items: flex-start;
         padding: 0;
         gap: u.toRem(12);
@@ -105,7 +127,7 @@
 
         @media (hover:hover) {
             &:hover {
-                filter:brightness(110%)
+                filter: brightness(110%)
             }
         }
     }
