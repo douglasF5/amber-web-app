@@ -1,4 +1,4 @@
-# Amber podcasts web app - Exercise from NLW 5 by Rocketseat
+# Amber podcasts web app
 
 * [About](#about)
 * [Project screenshots](#project-screenshots)
